@@ -469,7 +469,7 @@ public class jdbcpostgreSQL {
      * @return a result set containing the excess report for the specified date
      */
     public ResultSet getExcessReport(String date) {
-        ResultSet = null;
+        ResultSet r = null;
         try {
             // Get the time
             LocalDateTime dateTimeRightNow = LocalDateTime.now();
@@ -481,8 +481,7 @@ public class jdbcpostgreSQL {
             Statement stmt = conn.createStatement();
             String sqlStatement = "select t1.ingredientid, t1.soldqty, t2.name, t2.currAmount, t2.unit, t2.minAmount, t2.cost from (select it.ingredientid, sum(it.qty) as soldqty from inventorytransactions as it where it.ordertime between '"
                     + date + "' AND '" + formattedDateTime
-                    + "' group by it.ingredientid) t1 INNER JOIN (select i.ingredientID, i.name, i.currAmount, i.unit, i.minAmount, i.cost from inventory as i) t2 ON t1.ingredientID = t2.ingredientID WHERE t1.soldqty < (t2.currAmount + t1.soldqty) * 0.1";
-            System.out.println(sqlStatement);
+                    + "' group by it.ingredientid) t1 RIGHT JOIN (select i.ingredientID, i.name, i.currAmount, i.unit, i.minAmount, i.cost from inventory as i) t2 ON t1.ingredientID = t2.ingredientID WHERE (t1.soldqty < (t2.currAmount + t1.soldqty) * 0.1) or (soldqty is NULL);";
             r = stmt.executeQuery(sqlStatement);
 
         } catch (Exception e) {
