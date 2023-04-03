@@ -469,7 +469,7 @@ public class jdbcpostgreSQL {
      * @return a result set containing the excess report for the specified date
      */
     public ResultSet getExcessReport(String date) {
-        ResultSet = null;
+        ResultSet r = null;
         try {
             // Get the time
             LocalDateTime dateTimeRightNow = LocalDateTime.now();
