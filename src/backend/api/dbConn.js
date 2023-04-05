@@ -1,4 +1,8 @@
 var pg = require('pg');
+require('dotenv').config();
+
+console.log(process.env.PSQL_DATABASE);
+
 var pool;
 var config = {
   user: process.env.PSQL_USER,
@@ -14,4 +18,5 @@ module.exports = {
     if (pool) return pool; // if it is already there, grab it here
     pool = new pg.Pool(config);
     return pool;
-  };
+  }
+}

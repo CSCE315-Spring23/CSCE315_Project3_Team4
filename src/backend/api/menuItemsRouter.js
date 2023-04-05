@@ -5,16 +5,18 @@ var pool = db.getPool();
 
 
 const getMenuItemsList = (request, response) => {
-  if (request.params.class != null) {
-    var classId = parseInt(request.params.id)
-    pool.query('SELECT * FROM menuitems WHERE classid = $1', [classId], (error, results) => {
+  console.log(request.query.class)
+  if (request.query.class != null) {
+    const classId = request.query.class
+    console.log("classId = " + classId)
+    pool.query('SELECT * FROM menuitems WHERE classid = $1 ORDER BY menuitemid', [classId], (error, results) => {
       if (error) {
         throw error
       }
       response.status(200).json(results.rows)
     })
   } else {
-    pool.query('SELECT * FROM menuitems', (error, results) => {
+    pool.query('SELECT * FROM menuitems ORDER BY menuitemid', (error, results) => {
       if (error) {
         throw error
       }
