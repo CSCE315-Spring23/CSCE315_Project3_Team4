@@ -14,4 +14,5 @@ module.exports = {
     if (pool) return pool; // if it is already there, grab it here
     pool = new pg.Pool(config);
     return pool;
-  };
+  }
+}
