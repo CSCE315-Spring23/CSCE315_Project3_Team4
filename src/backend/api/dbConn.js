@@ -1,22 +1,22 @@
-var pg = require('pg');
-require('dotenv').config();
+var pg = require("pg");
+require("dotenv").config();
 
 console.log(process.env.PSQL_DATABASE);
 
 var pool;
 var config = {
-  user: process.env.PSQL_USER,
-  host: process.env.PSQL_HOST,
-  database: process.env.PSQL_DATABASE,
-  password: process.env.PSQL_PASSWORD,
-  port: process.env.PSQL_PORT,
-  max: 20
+    user: process.env.PSQL_USER,
+    host: process.env.PSQL_HOST,
+    database: process.env.PSQL_DATABASE,
+    password: process.env.PSQL_PASSWORD,
+    port: process.env.PSQL_PORT,
+    max: 20,
 };
 
 module.exports = {
-  getPool: function () {
-    if (pool) return pool; // if it is already there, grab it here
-    pool = new pg.Pool(config);
-    return pool;
-  }
-}
+    getPool: function () {
+        if (pool) return pool; // if it is already there, grab it here
+        pool = new pg.Pool(config);
+        return pool;
+    },
+};
