@@ -12,6 +12,11 @@ Start server:
 npm start
 ```
 
+Dev locally on MacOS:
+```
+npm run dev-mac
+```
+
 # Front end
 Pre-requisite:
 ```
