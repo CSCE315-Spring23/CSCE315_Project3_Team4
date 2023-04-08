@@ -86,8 +86,36 @@ const getRestockReport = (request, response) => {
     );
 };
 
+/* Given a time window, display the sales by item from the order history */
+const getSalesFrequentlyTogetherReport = (request, response) => {
+    if (request.query["start"] == null) {
+        response.status(400).json("Missing start date");
+    } else if (request.query["end"] == null) {
+        response.status(400).json("Missing end date");
+    } else {
+        let startTime = request.query["start"] + " 00:00:00";
+        let endTime = request.query["end"] + " 23:59:59";
+        pool.query(
+            "select t1.firstitem, t1.seconditem, t1.concat as menuitemstogether, COUNT(t1.concat) from (SELECT a.menuitemid as firstitem, b.menuitemid as seconditem, a.orderid, CONCAT(a.menuitemid, ' ', b.menuitemid) FROM orderlineitems a JOIN orderlineitems b  ON a.orderid = b.orderid and a.menuitemid < b.menuitemid) t1 INNER JOIN (select orders.ordertime, orders.orderid from orders where orders.ordertime between '" +
+                startTime +
+                "' AND '" +
+                endTime +
+                "' group by orders.orderid) t2 ON t1.orderid = t2.orderid GROUP BY t1.firstitem, t1.seconditem, t1.concat ORDER BY COUNT(t1.concat) DESC;",
+            (error, results) => {
+                if (error) {
+                    response.status(404).json("Error getting response");
+                } else response.status(200).json(results.rows);
+            }
+        );
+    }
+};
+
 router.get("/x-report", getXReport);
 router.get("/restock-report", getRestockReport);
 router.get("/excess-report", getExcessReport);
 router.get("/sales-report", getSalesReport);
+router.get(
+    "/sales-frequently-together-report",
+    getSalesFrequentlyTogetherReport
+);
 module.exports = router;
