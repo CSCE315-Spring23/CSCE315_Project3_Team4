@@ -8,25 +8,19 @@ const getOrdersList = (request, response) => {
   var whereClause = ""
   params = []
 
-  if (request.params.start != null) {
-    var start = request.params.start
+  if (request.query.start != null) {
+    var start = request.query.start
     params.push(start)
+    whereClause = " WHERE ordertime >= $1"
   }
-  if (request.params.end != null) {
-    var end = request.params.end
+  if (request.query.end != null) {
+    var end = request.query.end
     params.push(end)
+    whereClause = " WHERE ordertime <= $1"
   }
 
-  if (start || end) {
-    if (start && end) {
-      whereClause = " WHERE ordertime BETWEEN $1 AND $2"
-    } else {
-      if (start) {
-        whereClause = " WHERE ordertime >= $1"
-      } else {
-        whereClause = " WHERE ordertime <= $1"
-      }
-    }
+  if (params.length == 2) {
+    whereClause = " WHERE ordertime BETWEEN $1 AND $2"
   }
 
   pool.query('SELECT * FROM orders' + whereClause, params, (error, results) => {
@@ -83,10 +77,11 @@ const confirmOrder = (request, response) => {
   var timestamp = ""
   var totalPrice = 0.0
   var orderLineItemId = getNewOrderLineItemId()
-  for (item in order.items)
-    var itemPrice = getItemPrice().toFixed(2)
-  orderLineItemId++
-  totalPrice += itemPrice
+  for (item in order.items) {
+    var itemPrice = getItemPrice(item.menuitemid).toFixed(2)
+    orderLineItemId++
+    totalPrice += itemPrice
+  }
   insertIntoOLI([orderLineItemId, item.menuitemid, itemPrice, orderId])
   insertIntoOrders([orderId, timestamp, totalPrice.toFixed(2), order.employeeId])
   updateInventoryAndInventoryTransactions(orderId)
