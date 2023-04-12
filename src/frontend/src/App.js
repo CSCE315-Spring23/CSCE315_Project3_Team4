@@ -1,6 +1,8 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import LoginButton from "./loginButton.js";
+import LogoutButton from "./logoutButton.js";
 
 function App() {
     return (
@@ -18,7 +20,10 @@ function App() {
                 >
                     Learn React
                 </a>
+                <LoginButton />
+                <LogoutButton />
             </header>
+
         </div>
     );
 }
