@@ -1,0 +1,36 @@
+.backsplash {
+    background-color: #d6d3c4;
+}
+.nav{
+    background-color: #500000;
+    color: #500000;
+    position: static;
+    display: flex;
+    max-width: 1920px;
+    max-height: 100px;
+    clear: none;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    object-fit: none;
+}
+
+.nav-logo{
+    width: 225px;
+    height: 200px;
+}
+
+.nav-button {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    flex: 1;
+    border-radius: 20px;
+    background-color: #fff;
+    color: #500000;
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+
