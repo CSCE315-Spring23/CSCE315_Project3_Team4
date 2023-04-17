@@ -6,7 +6,7 @@
     "build": "cd ../frontend && npm run build",
     "start": "node ./bin/www",
     "dev-mac": "concurrently \"DEBUG=backend:* nodemon ./bin/www\" \"cd ../frontend && npm start\" ",
-    "dev-win": "$env:DEBUG='backend:*'; node ./bin/www"
+    "dev-win": "concurrently \"$env:DEBUG='backend:*'; npm start\" \"cd ../frontend && npm start\" "
   },
   "dependencies": {
     "concurrently": "^8.0.1",
