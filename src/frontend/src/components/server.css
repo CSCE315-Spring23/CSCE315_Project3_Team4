@@ -1,9 +1,10 @@
 .backsplash {
     background-color: #d6d3c4;
     height: 100vh;
-    
+
 }
-.nav{
+
+.nav {
     background-color: #500000;
     color: #500000;
     position: static;
@@ -18,21 +19,24 @@
     object-fit: none;
 }
 
-.nav-logo{
-    width: 225px;
-    height: 200px;
+.nav-logo {
+    width: 200px;
 }
 
 .nav-button {
     display: flex;
+    height: 45px;
     justify-content: center;
+    padding: 0;
+    white-space: nowrap;
     align-self: center;
+    line-height: 2.25em;
+    vertical-align: center;
     flex: 1;
     border-radius: 20px;
+    border-style: none;
     background-color: #fff;
     color: #500000;
     font-size: 20px;
     font-weight: bolder;
 }
-
-
