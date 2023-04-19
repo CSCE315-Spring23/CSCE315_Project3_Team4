@@ -17,6 +17,11 @@ Dev locally on MacOS:
 npm run dev-mac
 ```
 
+Dev locally on Windows:
+```
+npm run dev-win
+```
+
 # Front end
 Pre-requisite:
 ```
