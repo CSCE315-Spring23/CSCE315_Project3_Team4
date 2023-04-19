@@ -4,8 +4,6 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Auth0Provider } from "@auth0/auth0-react";
-import Sales from './manager-pages/Sales';
-import Combos from './server-pages/Combos';
 
 const path = require("path");
 require("dotenv").config({ path: path.resolve(__dirname, '../../.env') });
@@ -13,8 +11,8 @@ require("dotenv").config({ path: path.resolve(__dirname, '../../.env') });
 
 ReactDOM.render(
   <Auth0Provider
-    domain='dev-hpujtihtibtq5fuw.us.auth0.com'
-    clientId='4seGja9Q3Ca5qnuk8joiIjHrpFStoHWO'
+    domain={process.env.REACT_APP_AUTH0_DOMAIN}
+    clientId={process.env.REACT_APP_AUTH0_CLIENTID}
     authorizationParams={{
       redirect_uri: window.location.origin
     }}
