@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "cd ../frontend && npm run build",
     "start": "node ./bin/www",
     "dev-mac": "concurrently \"DEBUG=backend:* nodemon ./bin/www\" \"cd ../frontend && npm start\" ",
     "dev-win": "concurrently \"$env:DEBUG='backend:*'; npm start\" \"cd ../frontend && npm start\" "
