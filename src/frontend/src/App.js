@@ -4,6 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Landing from "./Home";
 import ServerView from "./server-pages/Home";
 import ManagerView from "./manager-pages/Home";
+import User from "./User"
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
 
     if (isAuthenticated) {
         console.log("%s is Authenticated", user.name);
+        //User.CreateUser(user.name, user.email, user.)
         var userClass = 1; //getUserClass( user name )
         switch (userClass) {
             case 0: // Employee/Server
