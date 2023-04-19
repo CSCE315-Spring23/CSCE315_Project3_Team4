@@ -1,5 +1,4 @@
 import React from "react";
-import { useAuth0 } from "@auth0/auth0-react";
 import Combos from "./Combos";
 import Entrees from "./Entrees";
 import Drinks from "./Drinks";
@@ -31,11 +30,6 @@ function Home() {
         </Router>
 
     );
-
-
-
-
-
 
 
 }

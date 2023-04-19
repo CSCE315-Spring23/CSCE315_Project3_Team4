@@ -11,24 +11,19 @@ const path = require("path");
 require("dotenv").config({ path: path.resolve(__dirname, '../../.env') });
 
 
-// ReactDOM.render(
-//   <Auth0Provider
-//     domain='dev-hpujtihtibtq5fuw.us.auth0.com'
-//     clientId='4seGja9Q3Ca5qnuk8joiIjHrpFStoHWO'
-//     authorizationParams={{
-//       redirect_uri: window.location.origin
-//     }}
-//   >
-//     <App />
-//   </Auth0Provider>,
-//   document.getElementById('root')
-// );
-
-
-
-ReactDOM.render(<Sales />,
+ReactDOM.render(
+  <Auth0Provider
+    domain='dev-hpujtihtibtq5fuw.us.auth0.com'
+    clientId='4seGja9Q3Ca5qnuk8joiIjHrpFStoHWO'
+    authorizationParams={{
+      redirect_uri: window.location.origin
+    }}
+  >
+    <App />
+  </Auth0Provider>,
   document.getElementById('root')
 );
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

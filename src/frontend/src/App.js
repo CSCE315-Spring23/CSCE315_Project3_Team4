@@ -10,16 +10,16 @@ function App() {
 
     const { isLoading, isAuthenticated, error, user, logout } = useAuth0();
 
-    // if (isLoading) {
-    //     return <div>Loading...</div>;
-    // }
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
     if (error) {
         return <div>Oops... {error.message}</div>;
     }
 
     if (isAuthenticated) {
         console.log("%s is Authenticated", user.name);
-        var userClass = 0; //getUserClass( user name )
+        var userClass = 1; //getUserClass( user name )
         switch (userClass) {
             case 0: // Employee/Server
                 return (<ServerView />);
