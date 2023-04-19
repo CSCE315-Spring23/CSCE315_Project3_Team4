@@ -3,6 +3,7 @@ import NavBar from '../components/serverNavBar'
 import Employee from '../components/serverEmployee'
 import CurrentOrder from "./CurrentOrder"
 import "../components/server.css"
+import "../components/navBar.css"
 import axios from "axios"
 
 function Combos() {
@@ -14,8 +15,8 @@ function Combos() {
         fetchCombos();
     }, [])
 
-    const fetchCombos = async() => {
-        const response = await axios.get("http://localhost:8000/menuItems/?class=1");
+    const fetchCombos = async () => {
+        const response = await axios.get("http://localhost:3000/menuItems/?class=1");
         setCombos(response.data);
     }
 
@@ -37,34 +38,34 @@ function Combos() {
             <header>
                 <NavBar />
             </header>
-          
+
             <main>
 
                 <Employee />
 
-                <div className = "POS-container">
-                    <div className = "Menu-grid">
+                <div className="POS-container">
+                    <div className="Menu-grid">
                         {combos.map(combo => (
-                        <div key = {combo.menuitemid} className = "MenuItem-block">
+                            <div key={combo.menuitemid} className="MenuItem-block">
 
-                            <button className = "Item-Button" 
-                                onClick={() => handleItemClick(combo)}>{combo.name}
-                            </button>
+                                <button className="Item-Button"
+                                    onClick={() => handleItemClick(combo)}>{combo.name}
+                                </button>
 
-                            <p className = "Item-Price">${combo.menuprice.toFixed(2)}</p>
+                                <p className="Item-Price">${combo.menuprice.toFixed(2)}</p>
 
-                        </div>
+                            </div>
 
                         ))}
-                    
+
                     </div>
-        
-                </div>              
+
+                </div>
             </main>
-                      
+
         </div>
-      );
-    }
+    );
+}
 
 
 export default Combos
