@@ -16,7 +16,7 @@ function App() {
 
     if (isAuthenticated) {
         console.log("%s is Authenticated", user.name);
-        var userClass = 0; //getUserClass( user name )
+        var userClass = 1; //getUserClass( user name )
         switch (userClass) {
             case 0: // Employee/Server
                 return (<ServerView />);
