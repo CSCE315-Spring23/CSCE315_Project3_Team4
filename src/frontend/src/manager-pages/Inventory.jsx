@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './style.css';
 import logo from "../components/revsLogo.png"
 
-class Sales extends Component {
+class Inventory extends Component {
     state = {  } 
     render() { 
         return (<body class="body">
@@ -38,4 +38,4 @@ class Sales extends Component {
     }
 }
  
-export default Sales;
+export default Inventory;
