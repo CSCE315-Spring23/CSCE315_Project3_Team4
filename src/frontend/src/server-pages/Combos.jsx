@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import NavBar from '../components/serverNavBar'
-import "../components/server.css"
+import "../components/navBar.css"
 import axios from "axios"
 
 function Combos() {
@@ -11,7 +11,7 @@ function Combos() {
         fetchCombos();
     }, [])
 
-    const fetchCombos = async() => {
+    const fetchCombos = async () => {
         const response = await axios.get("http://localhost:3000/menuItems/?class=1");
         setCombos(response.data);
     }
@@ -20,18 +20,18 @@ function Combos() {
         console.log(combos);
     }, [combos])
 
-  return (
-    <div className = "backsplash">
-        <header>
-            <NavBar />
-        </header>
-        <main>
-    
-        </main>
-    </div>
+    return (
+        <div className="backsplash">
+            <header>
+                <NavBar />
+            </header>
+            <main>
+
+            </main>
+        </div>
 
 
-  )
+    )
 }
 
 export default Combos
