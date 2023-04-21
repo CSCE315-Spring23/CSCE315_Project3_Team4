@@ -16,6 +16,7 @@ import {
 
 } from "react-router-dom";
 
+
 function App() {
     return (
         <Router>
@@ -29,7 +30,6 @@ function App() {
                 <Route path="/CurrentOrder" element={<CurrentOrder />} />
             </Routes>
         </Router>
-
     );
 }
 
