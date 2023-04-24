@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import Landing from "./Home";
 import ServerView from "./server-pages/Home";
 import ManagerView from "./manager-pages/Home";
-import User from "./User"
 
 
 function App() {
 
     const { isLoading, isAuthenticated, error, user, logout } = useAuth0();
+    localStorage.setItem('user', JSON.stringify(user));
+
+    useEffect(() => {
+        localStorage.setItem('user', JSON.stringify(user));
+        console.log("User: ", user);
+    }, [user])
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -19,18 +24,17 @@ function App() {
     }
 
     if (isAuthenticated) {
-        console.log("%s is Authenticated", user.name);
-        //User.CreateUser(user.name, user.email, user.)
-        var userClass = 1; //getUserClass( user name )
-        switch (userClass) {
-            case 0: // Employee/Server
+        console.log(user);
+        console.log("%s with ClassID: %s, is Authenticated", user.name, user.user_metadata.employeeClass);
+        switch (user.user_metadata.employeeClass) {
+            case '0': // Employee/Server
                 return (<ServerView />);
-            case 1: // Manager
+            case '1': // Manager
                 return (<ManagerView />);
-            // case 2: // Customer (Kiosk)
+            // case '2': // Customer (Kiosk)
             //     return (<CustomerView />);
             default:
-                console.log("User class %d is not recognized", userClass);
+                console.log("User class is not recognized. User logged out.");
                 logout({ logoutParams: { returnTo: window.location.assign("http://localhost:3000/") } });
                 return (<Landing />);
                 break;
@@ -39,13 +43,6 @@ function App() {
     } else {
         return <Landing />;
     }
-
-
-
-
-
-
-
 }
 
 export default App;
