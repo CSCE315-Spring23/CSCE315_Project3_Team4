@@ -21,7 +21,7 @@ function NavBar() {
           <Nav.Link className="nav-button" href="Restock_Report">Restock</Nav.Link>
           <Nav.Link className="nav-button" href="Inventory">Inventory</Nav.Link>
           <Nav.Link className="nav-button" href="Menu">Menu</Nav.Link>
-          <Nav.Link className="nav-button" href="Combos">POS</Nav.Link>
+          <button class="nav-button" /*onClick=setUserClass(0)*/ >POS</button>
           <LogoutButton class="nav-button" />
         </Container>
       </Navbar>

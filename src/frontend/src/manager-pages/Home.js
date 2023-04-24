@@ -7,7 +7,7 @@ import ExcessReport from "./Excess.jsx";
 import RestockReport from "./Restock.jsx";
 import Inventory from "./Inventory.jsx";
 import Menu from "./Menu.jsx";
-import Combos from "../server-pages/Combos.jsx";
+import ServerView from "../server-pages/Home";
 
 import {
     BrowserRouter as
@@ -31,7 +31,6 @@ function Home() {
                 <Route path="/Restock_Report" element={<RestockReport />} />
                 <Route path="/Inventory" element={<Inventory />} />
                 <Route path="/MenuItems" element={<Menu />} />
-                <Route path="/Combos" element={<Combos />} />
             </Routes>
         </Router>
 
