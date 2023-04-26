@@ -41,6 +41,4 @@ router.get('/', getMenuItemsList);
 router.get('/:id', getMenuItemById);
 
 
-
-
 module.exports = router;

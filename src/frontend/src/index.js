@@ -4,8 +4,6 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Auth0Provider } from "@auth0/auth0-react";
-import Combos from './server-pages/Combos';
-// import Sales from './manager-pages/Sales';
 
 const path = require("path");
 require("dotenv").config({ path: path.resolve(__dirname, '../../.env') });
@@ -13,10 +11,12 @@ require("dotenv").config({ path: path.resolve(__dirname, '../../.env') });
 
 ReactDOM.render(
   <Auth0Provider
-    domain='dev-hpujtihtibtq5fuw.us.auth0.com'
-    clientId='4seGja9Q3Ca5qnuk8joiIjHrpFStoHWO'
+    domain="dev-hpujtihtibtq5fuw.us.auth0.com"
+    clientId="4seGja9Q3Ca5qnuk8joiIjHrpFStoHWO"
     authorizationParams={{
-      redirect_uri: window.location.origin
+      redirect_uri: window.location.origin,
+      //audience: "https://dev-hpujtihtibtq5fuw.us.auth0.com/api/v2/",
+      //scope: "read:current_user update:current_user_metadata"
     }}
   >
     <App />
@@ -24,11 +24,6 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-
-
-// ReactDOM.render(<Sales />,
-//   document.getElementById('root')
-// );
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

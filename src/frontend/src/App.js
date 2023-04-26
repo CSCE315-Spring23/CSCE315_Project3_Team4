@@ -1,36 +1,41 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
+import { useAuth0 } from "@auth0/auth0-react";
 import Landing from "./Home";
-import Combos from "./server-pages/Combos";
-import Entrees from "./server-pages/Entrees";
-import Drinks from "./server-pages/Drinks";
-import Sweets from "./server-pages/Sweets";
-import Sides from "./server-pages/Sides";
-import CurrentOrder from "./server-pages/CurrentOrder";
-
-import {
-    BrowserRouter as
-        Router,
-    Routes,
-    Route,
-
-} from "react-router-dom";
-
+import ServerView from "./server-pages/Home";
+import ManagerView from "./manager-pages/Home";
 
 function App() {
-    return (
-        <Router>
-            <Routes>
-                <Route path="/" element={<Landing />} />
-                <Route path="/Combos" element={<Combos />} />
-                <Route path="/Entrees" element={<Entrees />} />
-                <Route path="/Drinks" element={<Drinks />} />
-                <Route path="/Sweets" element={<Sweets />} />
-                <Route path="/Sides" element={<Sides />} />
-                <Route path="/CurrentOrder" element={<CurrentOrder />} />
-            </Routes>
-        </Router>
-    );
+
+    const { isLoading, isAuthenticated, error, user, logout } = useAuth0();
+    localStorage.setItem('user', JSON.stringify(user));
+
+    if (isLoading) { return <h1>Loading...</h1> }
+
+    if (error) {
+        return <div>Oops... {error.message}</div>;
+    }
+
+    if (isAuthenticated) {
+        console.log(user);
+        console.log("%s with ClassID: %s, is authenticated", user.name, user.user_metadata.employeeClass);
+        switch (user.user_metadata.employeeClass) {
+            case '0': // Employee/Server
+                return (<ServerView />);
+            case '1': // Manager
+                return (<ManagerView />);
+            // case '2': // Customer (Kiosk)
+            //     return (<CustomerView />);
+            default:
+                console.log("User class is not recognized. User logged out.");
+                logout({ logoutParams: { returnTo: window.location.assign("http://localhost:3000/") } });
+                return (<Landing />);
+                break;
+        }
+
+    } else {
+        return <Landing />;
+    }
 }
 
 export default App;
