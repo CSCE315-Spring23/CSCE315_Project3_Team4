@@ -2,7 +2,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import React from 'react'
-import "./navBar.css"
+import "./server.css"
 import logo from "./revsLogo.png"
 import LogoutButton from "./logoutButton"
 

@@ -11,11 +11,11 @@ require("dotenv").config({ path: path.resolve(__dirname, '../../.env') });
 
 ReactDOM.render(
   <Auth0Provider
-    domain={process.env.REACT_APP_AUTH0_DOMAIN}
-    clientId={process.env.REACT_APP_AUTH0_CLIENTID}
+    domain="dev-hpujtihtibtq5fuw.us.auth0.com"
+    clientId="4seGja9Q3Ca5qnuk8joiIjHrpFStoHWO"
     authorizationParams={{
       redirect_uri: window.location.origin,
-      audience: "https://dev-hpujtihtibtq5fuw.us.auth0.com/api/v2/",
+      //audience: "https://dev-hpujtihtibtq5fuw.us.auth0.com/api/v2/",
       //scope: "read:current_user update:current_user_metadata"
     }}
   >
@@ -28,4 +28,4 @@ ReactDOM.render(
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+// reportWebVitals();

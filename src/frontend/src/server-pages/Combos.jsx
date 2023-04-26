@@ -3,7 +3,6 @@ import NavBar from '../components/serverNavBar'
 import Employee from '../components/serverEmployee'
 import CurrentOrder from "./CurrentOrder"
 import "../components/server.css"
-import "../components/navBar.css"
 import axios from "axios"
 
 function Combos() {
@@ -16,7 +15,7 @@ function Combos() {
     }, [])
 
     const fetchCombos = async () => {
-        const response = await axios.get("http://localhost:3000/menuItems/?class=1");
+        const response = await axios.get("http://localhost:8000/menuItems/?class=1");
         setCombos(response.data);
     }
 

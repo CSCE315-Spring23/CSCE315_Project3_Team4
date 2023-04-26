@@ -5,6 +5,7 @@ import Drinks from "./Drinks";
 import Sweets from "./Sweets";
 import Sides from "./Sides";
 import CurrentOrder from "./CurrentOrder";
+import NavBar from "../components/serverNavBar"
 
 import {
     BrowserRouter as
@@ -16,6 +17,16 @@ import {
 } from "react-router-dom";
 
 function Home() {
+    // return (
+    //     <NavBar />
+    // );
+
+
+
+
+
+
+
     return (
         <Router>
             <Routes>
