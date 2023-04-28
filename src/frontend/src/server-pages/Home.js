@@ -22,6 +22,7 @@ import {
 function Home() {
 
     const [items, setItems] = useState([]);
+    const [orderView, setOrderView] = useState(false);
     var [currItemClass, setCurrItemClass] = useState(1);
     const [currentOrder, setCurrentOrder] = useState([]);
 
@@ -32,6 +33,7 @@ function Home() {
     const fetchItems = async () => {
         const response = await axios.get("http://localhost:8000/menuItems/?class=" + currItemClass);
         setItems(response.data);
+        setOrderView(false);
     }
 
     useEffect(() => {
@@ -55,34 +57,33 @@ function Home() {
         console.log("New Item Class Selected: %s", currItemClass);
     }, [currItemClass])
 
+    function handleOrderView() {
+        setOrderView(true);
+    };
 
     return (
         <div className="backsplash">
 
             <header>
-                <NavBar change={handleCurrItemClass} />
+                <NavBar change={handleCurrItemClass} orderView={handleOrderView} />
             </header>
             <main>
                 <Employee />
-
-                <div className="POS-container">
+                {!orderView && <div className="POS-container">
                     <div className="Menu-grid">
                         {items.map(item => (
                             <div key={item.menuitemid} className="MenuItem-block">
-
                                 <button className="Item-Button"
                                     onClick={() => handleItemClick(item)}>{item.name}
                                 </button>
 
                                 <p className="Item-Price">${item.menuprice.toFixed(2)}</p>
-
                             </div>
-
                         ))}
-
                     </div>
+                </div>}
 
-                </div>
+                {orderView && <></>/*orderview content*/}
             </main>
 
         </div>
