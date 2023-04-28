@@ -5,6 +5,8 @@ import Landing from "./Home";
 import ServerView from "./server-pages/Home";
 import ManagerView from "./manager-pages/Home";
 
+localStorage.setItem('window_origin', JSON.stringify(window.location.origin));
+
 function App() {
 
     const { isLoading, isAuthenticated, error, user, logout } = useAuth0();
@@ -28,7 +30,7 @@ function App() {
             //     return (<CustomerView />);
             default:
                 console.log("User class is not recognized. User logged out.");
-                logout({ logoutParams: { returnTo: window.location.assign("http://localhost:3000/") } });
+                logout({ logoutParams: { returnTo: window.location.assign(localStorage.getItem('window_origin')) } });
                 return (<Landing />);
                 break;
         }

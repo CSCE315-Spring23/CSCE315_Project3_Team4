@@ -5,7 +5,7 @@ const LogoutButton = (props) => {
     const { logout } = useAuth0();
 
     return (
-        <button class={props.class} onClick={() => logout({ logoutParams: { returnTo: window.location.assign("http://localhost:3000/") } })}>
+        <button class={props.class} onClick={() => logout({ logoutParams: { returnTo: window.location.assign(localStorage.getItem('window_origin')) } })}>
             Log Out
         </button>
     );
