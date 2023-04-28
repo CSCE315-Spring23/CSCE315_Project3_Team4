@@ -21,15 +21,8 @@ import {
 
 function Home() {
 
-    const [combos, setCombos] = useState([]);
-    const [entrees, setEntrees] = useState([]);
-    // const [, setCombos] = useState([]);
-    // const [combos, setCombos] = useState([]);
-    // const [combos, setCombos] = useState([]);
-    // const [combos, setCombos] = useState([]);
-    // const [combos, setCombos] = useState([]);
+    const [items, setItems] = useState([]);
     var [currItemClass, setCurrItemClass] = useState(1);
-
     const [currentOrder, setCurrentOrder] = useState([]);
 
     useEffect(() => {
@@ -37,19 +30,13 @@ function Home() {
     }, [])
 
     const fetchItems = async () => {
-        const resp_com = await axios.get("http://localhost:8000/menuItems/?class=1");
-        setCombos(resp_com.data);
-        const resp_ent = await axios.get("http://localhost:8000/menuItems/?class=2");
-        setEntrees(resp_ent.data);
+        const response = await axios.get("http://localhost:8000/menuItems/?class=" + currItemClass);
+        setItems(response.data);
     }
 
     useEffect(() => {
-        console.log(combos);
-    }, [combos])
-
-    useEffect(() => {
-        console.log(entrees);
-    }, [entrees])
+        console.log(items);
+    }, [items])
 
     const handleItemClick = (item) => {
         setCurrentOrder([...currentOrder, item]);
@@ -64,6 +51,7 @@ function Home() {
     }
 
     useEffect(() => {
+        fetchItems();
         console.log("New Item Class Selected: %s", currItemClass);
     }, [currItemClass])
 
@@ -77,6 +65,24 @@ function Home() {
             <main>
                 <Employee />
 
+                <div className="POS-container">
+                    <div className="Menu-grid">
+                        {items.map(item => (
+                            <div key={item.menuitemid} className="MenuItem-block">
+
+                                <button className="Item-Button"
+                                    onClick={() => handleItemClick(item)}>{item.name}
+                                </button>
+
+                                <p className="Item-Price">${item.menuprice.toFixed(2)}</p>
+
+                            </div>
+
+                        ))}
+
+                    </div>
+
+                </div>
             </main>
 
         </div>
