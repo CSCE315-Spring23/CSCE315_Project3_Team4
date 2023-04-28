@@ -6,7 +6,7 @@ import "./server.css"
 import logo from "./revsLogo.png"
 import LogoutButton from "./logoutButton"
 
-function serverNavBar() {
+function serverNavBar({ change }) {
 
   // const [itemClass, setItemClass] = useState(1);
 
@@ -21,8 +21,8 @@ function serverNavBar() {
           <Navbar.Brand>
             <img className="nav-logo" src={logo} />
           </Navbar.Brand>
-          <button class="nav-button" >Combos</button>
-          <Nav.Link className="nav-button" href="Entrees">Entrees</Nav.Link>
+          <button class="nav-button" onClick={() => change(1)} >Combos</button>
+          <button class="nav-button" onClick={() => change(2)} >Entrees</button>
           <Nav.Link className="nav-button" href="Drinks">Drinks</Nav.Link>
           <Nav.Link className="nav-button" href="Sweets">Sweets</Nav.Link>
           <Nav.Link className="nav-button" href="Sides">Sides</Nav.Link>
