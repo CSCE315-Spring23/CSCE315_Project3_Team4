@@ -7,7 +7,7 @@ const LogoutButton = (props) => {
     console.log("Logout initiated. window.location.origin: %s", window.location.origin);
 
     return (
-        <button class={props.class} onClick={() => logout({ logoutParams: { returnTo: window.location.assign(window.location.origin) } })}>
+        <button class={props.class} onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
             Log Out
         </button>
     );
