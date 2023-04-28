@@ -1,23 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Combos from "./Combos";
-import Entrees from "./Entrees";
-import Drinks from "./Drinks";
-import Sweets from "./Sweets";
-import Sides from "./Sides";
-import CurrentOrder from "./CurrentOrder";
 import "../components/server.css"
 import Employee from "../components/serverEmployee"
 import NavBar from "../components/serverNavBar"
 import axios from "axios"
-
-import {
-    BrowserRouter as
-        Router,
-    Routes,
-    Route,
-    Navigate
-
-} from "react-router-dom";
 
 function Home() {
 
@@ -83,7 +68,16 @@ function Home() {
                     </div>
                 </div>}
 
-                {orderView && <></>/*orderview content*/}
+                {orderView && <div className="POS-container">
+                    <div className="Menu-grid">
+                        {currentOrder && currentOrder.map((item) => (
+                            <div key={item.menuitemid} className="MenuItem-block">
+                                <p>{item.name}</p>
+                                <p>${item.menuprice.toFixed(2)}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>}
             </main>
 
         </div>
