@@ -1,12 +1,11 @@
 import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import React, { useState } from 'react'
 import "./server.css"
 import logo from "./revsLogo.png"
 import LogoutButton from "./logoutButton"
 
-function serverNavBar({ change, orderView }) {
+function serverNavBar({ change, orderView, isManager, managerView }) {
 
   // const [itemClass, setItemClass] = useState(1);
 
@@ -27,7 +26,8 @@ function serverNavBar({ change, orderView }) {
           <button class="nav-button" onClick={() => change(4)} >Sweets</button>
           <button class="nav-button" onClick={() => change(5)} >Sides</button>
           <button class="nav-button" onClick={() => orderView()} >Order</button>
-          <LogoutButton className="nav-button" />
+          {isManager && <button class="nav-button" onClick={() => managerView()} >Manager</button>}
+          <LogoutButton class="nav-button" />
         </Container>
       </Navbar>
     </>
