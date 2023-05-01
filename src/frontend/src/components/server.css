@@ -39,31 +39,38 @@
     color: #500000;
     font-size: 20px;
     font-weight: bolder;
+    margin: 2px;
+}
+
+.nav-button:hover {
+    background-color: #f8bf0c;
 }
 
 .Employee-box {
-    position: absolute;
-    top: 120px;
-    left: 20px;
+    position: relative;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
     background-color: #500000;
-    padding: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
     color: white;
     font-size: 25px;
     font-weight: bold;
     text-align: left;
-    height: 2em;
-    min-width: 200px;
-    max-width: 500px;
+    height: 1.5em;
+    width: fit-content;
     border-radius: 20px;
 }
 
 .POS-container {
     /* THE POS BORDER */
-    max-height: calc(60vh);
+    height: 70vh;
     /* max height 1/2 page */
     overflow-y: auto;
+    margin-top: -10px;
     /* test scrollbar */
-    margin-top: 150px;
+    /* margin-top: 200px; */
     border: 5px solid #500000;
     border-radius: 10px;
     max-width: 1300px;
@@ -74,7 +81,7 @@
 .POS-container::-webkit-scrollbar {
     /* the scrollbar track */
     width: 8px;
-    background-color: rgba(0, 0, 0, 0.01);
+    background-color: rgba(0, 0, 0, 0);
     /*transparent scroll bar tracker*/
 }
 
@@ -124,6 +131,16 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.2s ease-out;
+}
+
+.Item-Button:hover {
+    background-color: #032e5d;
+}
+
+.Item-Button:active {
+    background-color: #f00;
+    transition-duration: 0.1s;
 }
 
 .Item-Price {
@@ -133,4 +150,121 @@
     font-weight: bold;
     text-align: center;
     margin-top: 10px;
+}
+
+.GrandTotal-box {
+    position: relative;
+    background-color: #500000;
+    padding: 20px;
+    color: white;
+    font-size: 40px;
+    font-weight: bolder;
+    text-align: left;
+    max-width: 40vw;
+    max-height: 10vh;
+    border-radius: 20px;
+    bottom: 50px;
+
+}
+
+.Order-container {
+    /* THE POS BORDER */
+    height: 60vh;
+    /* max height 1/2 page */
+    overflow-y: auto;
+    /* test scrollbar */
+    margin-top: 50px;
+    border: 5px solid #500000;
+    border-radius: 10px;
+    max-width: 1300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.Order-container::-webkit-scrollbar {
+    /* the scrollbar track */
+    width: 8px;
+    background-color: rgba(0, 0, 0, 0.01);
+    /*transparent scroll bar tracker*/
+}
+
+.Order-container::-webkit-scrollbar-thumb {
+    /* current location of scrollbar */
+    background-color: #500000;
+    border-radius: 4px;
+}
+
+.Order-container::-webkit-scrollbar-thumb:hover {
+    /* scrollbar hover */
+    background-color: #f8bf0c;
+}
+
+.Order-container::-webkit-scrollbar-thumb:active {
+    /* scrollbar hover onclick*/
+    background-color: #f8bf0c;
+}
+
+.Order-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    text-align: center;
+    margin: auto;
+    width: 80vw;
+    height: auto;
+}
+
+.Invoice-container {
+    background-color: white;
+    border: 2px solid black;
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 20px;
+    font-size: 18px;
+}
+
+.Invoice-Header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.Invoice-Title {
+    font-size: 40px;
+    text-align: center;
+    font-weight: bolder;
+    padding-bottom: 10vh;
+}
+
+.Invoice-Item {
+    display: flex;
+    align-items: left;
+    margin-bottom: 10px;
+}
+
+.Invoice-Image-Readjust {
+    display: flex;
+    align-items: left;
+    margin-bottom: 5px;
+}
+
+.Invoice-Item-Image {
+    align-items: left;
+    width: 100px;
+    height: 100px;
+}
+
+.Invoice-Item-Name {
+    flex: 1;
+    align-items: center;
+    margin-right: 10px;
+    font-size: 30px;
+    text-transform: capitalize;
+}
+
+.Invoice-Item-Price {
+    font-weight: bolder;
+    font-size: 30px;
 }

@@ -1,66 +1,69 @@
-import '../components/server.css'
-
-import axios from 'axios'
-import React, {useEffect, useState} from 'react';
-
-import Employee from '../components/serverEmployee'
-import NavBar from '../components/serverNavBar'
+import React, { useEffect, useState } from "react";
+import "../components/server.css"
+import Employee from "../components/serverEmployee"
+import tempLogo from "../components/revsLogo.png"
+import NavBar from "../components/serverNavBar"
+import axios from "axios"
 import ManagerView from '../manager-pages/Home'
 
-function Home({userClass}) {
-  const [items, setItems] = useState([]);
-  const [orderView, setOrderView] = useState(false);
-  const [managerView, setManagerView] = useState(false);
-  var [currItemClass, setCurrItemClass] = useState(1);
-  const [currentOrder, setCurrentOrder] = useState([]);
+function Home({ userClass }) {
 
-  useEffect(() => {
-    fetchItems();
-  }, [])
+    const [items, setItems] = useState([]);
+    const [orderView, setOrderView] = useState(false);
+    var [currItemClass, setCurrItemClass] = useState(1);
+    const [managerView, setManagerView] = useState(false);
+    const [currentOrder, setCurrentOrder] = useState([]);
+    const [grandTotal, setGrandTotal] = useState(0);
 
-  const fetchItems =
-      async () => {
-    const response = await axios.get(
-        'https://revs-grill-backend.onrender.com/menuItems/?class=' +
-        currItemClass);
-    setItems(response.data);
-    setOrderView(false);
-  }
+    useEffect(() => {
+        fetchItems();
+    }, [])
 
-  useEffect(() => {
-    console.log(items);
-  }, [items])
+    const fetchItems =
+        async () => {
+            const response = await axios.get(
+                'https://revs-grill-backend.onrender.com/menuItems/?class=' +
+                currItemClass);
+            setItems(response.data);
+            setOrderView(false);
+        }
 
-  const handleItemClick = (item) => {
-    setCurrentOrder([...currentOrder, item]);
-  };
+    useEffect(() => {
+        console.log(items);
+    }, [items])
 
-  useEffect(() => {
-    console.log(currentOrder);
-  }, [currentOrder])
+    const handleItemClick = (item) => {
+        setCurrentOrder([...currentOrder, item]);
+    };
 
-  function handleCurrItemClass(newClass) {
-    setCurrItemClass(newClass);
-  }
+    useEffect(() => {
+        console.log(currentOrder);
+    }, [currentOrder])
 
-  useEffect(() => {
-    fetchItems();
-    console.log('New Item Class Selected: %s', currItemClass);
-  }, [currItemClass])
-
-  function handleOrderView() {
-    setOrderView(true);
-  };
-
-  function handleManagerView() {
-    if (userClass == 1) {
-      setManagerView(true);
-    } else {
-      console.log(
-          'Unauthorized attepmt to access manager view. UserClass = ',
-          userClass);
+    function handleCurrItemClass(newClass) {
+        setCurrItemClass(newClass);
     }
-  };
+
+    useEffect(() => {
+        fetchItems();
+        console.log('New Item Class Selected: %s', currItemClass);
+    }, [currItemClass])
+
+    function handleOrderView() {
+        const total = currentOrder.reduce((acc, item) => acc + item.menuprice, 0);
+        setOrderView(true);
+        setGrandTotal(total);
+    };
+
+    function handleManagerView() {
+        if (userClass == 1) {
+            setManagerView(true);
+        } else {
+            console.log(
+                'Unauthorized attepmt to access manager view. UserClass = ',
+                userClass);
+        }
+    };
 
     return (
         <div>
@@ -68,7 +71,7 @@ function Home({userClass}) {
 
                 <header>
                     <NavBar change={handleCurrItemClass} orderView={handleOrderView} isManager={userClass == 1} managerView={
-    handleManagerView} />
+                        handleManagerView} />
                 </header>
                 <main>
                     <Employee />
@@ -86,22 +89,32 @@ function Home({userClass}) {
                         </div>
                     </div>}
 
-                    {orderView && <div className="POS-container">
-                        <div className="Menu-grid">
-                            {currentOrder && currentOrder.map((item) => (
-                                <div key={item.menuitemid} className="MenuItem-block">
-                                    <p className="Item-Button">{item.name}</p>
-                                    <p className='Item-Price'>${item.menuprice.toFixed(2)}</p>
+                    {orderView && (
+                        <div className="Order-container">
+                            <div className="Order-block">
+                                <div className="Invoice-Title">Your Order</div>
+                                <div>
+                                    {currentOrder &&
+                                        currentOrder.map((item) => (
+                                            <div key={item.menuitemid} className="Invoice-Image-Readjust">
+                                                <div className="Invoice-Item-Image"> <img src={tempLogo} alt={item.name} className="Invoice-Image-Readjust" /> </div>
+                                                <div className="Invoice-Item-Name">{item.name}</div>
+                                                <div className="Invoice-Item-Price"> ${item.menuprice.toFixed(2)} </div>
+                                            </div>
+                                        ))}
                                 </div>
-                            ))}
+                            </div>
+
+                            <div className="GrandTotal-box"> Grand Total: ${grandTotal.toFixed(2)} </div>
                         </div>
-                    </div>}
+                    )}
+
                 </main>
 
             </div>}
             {managerView && <ManagerView />}
         </div>
-    );
+    )
 }
 
 export default Home;

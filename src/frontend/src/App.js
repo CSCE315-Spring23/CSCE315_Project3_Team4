@@ -44,6 +44,7 @@ function App() {
     } else {
         return <Landing />;
     }
+    //return (<ServerView />)
 }
 
 export default App;
