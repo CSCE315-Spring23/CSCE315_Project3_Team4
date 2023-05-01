@@ -19,7 +19,7 @@ const updateInventory = (request, response) => {
             `update inventory set curramount=${curramount}, minamount=${minamount} where ingredientid=${ingredientid}`,
             (error, results) => {
                 if (error) {
-                    response.status(404).json("Error getting response");
+                    response.status(404).json("Error update inventory item");
                 } else {
                     pool.query("SELECT * from inventory", (error, results) => {
                         if (error) {
@@ -75,7 +75,36 @@ const addMenuItem = (request, response) => {
     } else response.status(400).json("Bad request");
 };
 
+/* Update menu item */
+const updateMenuItem = (request, response) => {
+    data = request.body;
+    menuitemid = data["menuitemid"]; // int
+    menuprice = data["menuprice"]; // float
+    if (menuitemid > 0 && menuprice > 0) {
+        pool.query(
+            `update menuitems set menuprice=${menuprice} where menuitemid=${menuitemid}`,
+            (error, results) => {
+                if (error) {
+                    response.status(404).json("Error update menu item price");
+                } else {
+                    pool.query(
+                        "SELECT * FROM menuitems ORDER BY menuitemid",
+                        (error, results) => {
+                            if (error) {
+                                response
+                                    .status(404)
+                                    .json("Error getting response");
+                            } else response.status(200).json(results.rows);
+                        }
+                    );
+                }
+            }
+        );
+    } else response.status(400).json("Bad request");
+};
+
 router.post("/update-inventory", updateInventory);
-router.post("/add-menu-item", addMenuItem);
+router.post("/add-new-menu-item", addMenuItem);
+router.post("/update-menu-item", updateMenuItem);
 
 module.exports = router;
