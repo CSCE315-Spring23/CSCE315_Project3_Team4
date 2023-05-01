@@ -41,27 +41,13 @@
     font-weight: bolder;
 }
 
-.Employee-box {
-    position: absolute;
-    top: 120px;
-    left: 20px;
-    background-color: #500000;
-    padding: 10px;
-    color: white;
-    font-size: 25px;
-    font-weight: bold;
-    text-align: left;
-    max-width: 40vw;
-    border-radius: 20px;
-}
-
 .POS-container {
     /* THE POS BORDER */
-    max-height: calc(60vh);
+    max-height: calc(80vh);
     /* max height 1/2 page */
     overflow-y: auto;
     /* test scrollbar */
-    margin-top: 150px;
+    margin-top: 50px;
     border: 5px solid #500000;
     border-radius: 10px;
     max-width: 1300px;

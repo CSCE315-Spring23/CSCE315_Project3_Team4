@@ -29,7 +29,7 @@ function App() {
 
             case '2': // Customer (Kiosk)
                 return (<CustomerView />);
-                
+
             default:
                 console.log("User class is not recognized. User logged out.");
                 logout({ logoutParams: { returnTo: window.location.assign(window.location.origin) } });
@@ -40,6 +40,10 @@ function App() {
     } else {
         return <Landing />;
     }
+
+        /*Paul Local Testing*/
+    //return (<ServerView />);
+    //return (<CustomerView />);
 }
 
 export default App;

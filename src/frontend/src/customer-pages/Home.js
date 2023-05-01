@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../components/server.css"
+import "../components/customer.css"
 import NavBar from "../components/customerNavBar"
 import axios from "axios"
 
@@ -70,8 +70,8 @@ function Home() {
                     <div className="Menu-grid">
                         {currentOrder && currentOrder.map((item) => (
                             <div key={item.menuitemid} className="MenuItem-block">
-                                <p>{item.name}</p>
-                                <p>${item.menuprice.toFixed(2)}</p>
+                                <p className="Item-Button">{item.name}</p>
+                                <p className="Item-Price">${item.menuprice.toFixed(2)}</p>
                             </div>
                         ))}
                     </div>
