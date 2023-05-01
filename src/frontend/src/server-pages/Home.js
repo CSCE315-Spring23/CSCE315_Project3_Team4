@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../components/server.css"
 import Employee from "../components/serverEmployee"
+import tempLogo from "../components/revsLogo.png"
 import NavBar from "../components/serverNavBar"
 import axios from "axios"
 
@@ -10,6 +11,7 @@ function Home() {
     const [orderView, setOrderView] = useState(false);
     var [currItemClass, setCurrItemClass] = useState(1);
     const [currentOrder, setCurrentOrder] = useState([]);
+    const [grandTotal, setGrandTotal] = useState(0);
 
     useEffect(() => {
         fetchItems();
@@ -43,8 +45,11 @@ function Home() {
     }, [currItemClass])
 
     function handleOrderView() {
+        const total = currentOrder.reduce((acc, item) => acc + item.menuprice, 0);
         setOrderView(true);
+        setGrandTotal(total);
     };
+
 
     return (
         <div className="backsplash">
@@ -68,16 +73,26 @@ function Home() {
                     </div>
                 </div>}
 
-                {orderView && <div className="POS-container">
-                    <div className="Menu-grid">
-                        {currentOrder && currentOrder.map((item) => (
-                            <div key={item.menuitemid} className="MenuItem-block">
-                                <p className="Item-Button">{item.name}</p>
-                                <p className="Item-Price">${item.menuprice.toFixed(2)}</p>
+                {orderView && (
+                    <div className="Order-container">
+                        <div className="Order-block">
+                            <div className="Invoice-Title">Your Order</div>
+                            <div>
+                                {currentOrder &&
+                                currentOrder.map((item) => (
+                                    <div key={item.menuitemid} className="Invoice-Image-Readjust">
+                                        <div className="Invoice-Item-Image"> <img src={tempLogo} alt={item.name} className="Invoice-Image-Readjust"/> </div>
+                                        <div className="Invoice-Item-Name">{item.name}</div>
+                                        <div className="Invoice-Item-Price"> ${item.menuprice.toFixed(2)} </div>
+                                    </div>
+                                ))}
                             </div>
-                        ))}
+                        </div>
+                        
+                        <div className = "GrandTotal-box"> Grand Total: ${grandTotal.toFixed(2)} </div>
                     </div>
-                </div>}
+                )}
+
             </main>
 
         </div>
