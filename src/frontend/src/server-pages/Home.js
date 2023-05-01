@@ -117,6 +117,4 @@ function Home({ userClass }) {
     )
 }
 
-
-
 export default Home;

@@ -8,11 +8,13 @@ import CustomerView from "./customer-pages/Home";
 
 
 function App() {
-
+    return <Landing />;
     const { isLoading, isAuthenticated, error, user, logout } = useAuth0();
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem("user", JSON.stringify(user));
 
-    if (isLoading) { return <h1>Loading...</h1> }
+    if (isLoading) {
+        return <h1>Loading...</h1>;
+    }
 
     if (error) {
         return <div>Oops... {error.message}</div>;
@@ -20,22 +22,25 @@ function App() {
 
     if (isAuthenticated) {
         console.log(user);
-        console.log("%s with ClassID: %s, is authenticated", user.name, user.user_metadata.employeeClass);
+        console.log(
+            "%s with ClassID: %s, is authenticated",
+            user.name,
+            user.user_metadata.employeeClass
+        );
         switch (user.user_metadata.employeeClass) {
             case '0': // Employee/Server
                 return (<ServerView userClass={user.user_metadata.employeeClass} />);
             case '1': // Manager
                 return (<ManagerView />);
 
-            case '2': // Customer (Kiosk)
-                return (<CustomerView />);
+            case "2": // Customer (Kiosk)
+                return <CustomerView />;
 
             default:
                 console.log("User class is not recognized. User logged out.");
                 logout({ logoutParams: { returnTo: window.location.origin } });
                 return <Landing />;
         }
-
     } else {
         return <Landing />;
     }
