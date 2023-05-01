@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "./App.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import Landing from "./Home";
 import ServerView from "./server-pages/Home";
 import ManagerView from "./manager-pages/Home";
 import CustomerView from "./customer-pages/Home";
+
 
 function App() {
     return <Landing />;
@@ -27,34 +28,22 @@ function App() {
             user.user_metadata.employeeClass
         );
         switch (user.user_metadata.employeeClass) {
-            case "0": // Employee/Server
-                return <ServerView />;
-
-            case "1": // Manager
-                return <ManagerView />;
+            case '0': // Employee/Server
+                return (<ServerView userClass={user.user_metadata.employeeClass} />);
+            case '1': // Manager
+                return (<ManagerView />);
 
             case "2": // Customer (Kiosk)
                 return <CustomerView />;
 
             default:
                 console.log("User class is not recognized. User logged out.");
-                logout({
-                    logoutParams: {
-                        returnTo: window.location.assign(
-                            window.location.origin
-                        ),
-                    },
-                });
+                logout({ logoutParams: { returnTo: window.location.origin } });
                 return <Landing />;
-                break;
         }
     } else {
         return <Landing />;
     }
-
-    /*Paul Local Testing*/
-    //return (<ServerView />);
-    //return (<CustomerView />);
 }
 
 export default App;

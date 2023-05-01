@@ -1,62 +1,67 @@
-import React, { useEffect, useState } from "react";
-import "../components/customer.css"
-import NavBar from "../components/customerNavBar"
-import axios from "axios"
+import '../components/customer.css'
+
+import axios from 'axios'
+import React, {useEffect, useState} from 'react';
+
+import NavBar from '../components/customerNavBar'
 
 function Home() {
+  const [items, setItems] = useState([]);
+  const [orderView, setOrderView] = useState(false);
+  var [currItemClass, setCurrItemClass] = useState(1);
+  const [currentOrder, setCurrentOrder] = useState([]);
 
-    const [items, setItems] = useState([]);
-    const [orderView, setOrderView] = useState(false);
-    var [currItemClass, setCurrItemClass] = useState(1);
-    const [currentOrder, setCurrentOrder] = useState([]);
+  useEffect(() => {
+    fetchItems();
+  }, [])
 
-    useEffect(() => {
-        fetchItems();
-    }, [])
+  const fetchItems =
+      async () => {
+    const response = await axios.get(
+        'https://revs-grill-backend.onrender.com/menuItems/?class=' +
+        currItemClass);
+    setItems(response.data);
+    setOrderView(false);
+  }
 
-    const fetchItems = async () => {
-        const response = await axios.get("http://localhost:8000/menuItems/?class=" + currItemClass);
-        setItems(response.data);
-        setOrderView(false);
-    }
+  useEffect(() => {
+    console.log(items);
+  }, [items])
 
-    useEffect(() => {
-        console.log(items);
-    }, [items])
+  const handleItemClick = (item) => {
+    setCurrentOrder([...currentOrder, item]);
+  };
 
-    const handleItemClick = (item) => {
-        setCurrentOrder([...currentOrder, item]);
-    };
+  useEffect(() => {
+    console.log(currentOrder);
+  }, [currentOrder])
 
-    useEffect(() => {
-        console.log(currentOrder);
-    }, [currentOrder])
+  function handleCurrItemClass(newClass) {
+    setCurrItemClass(newClass);
+  }
 
-    function handleCurrItemClass(newClass) {
-        setCurrItemClass(newClass);
-    }
+  useEffect(() => {
+    fetchItems();
+    console.log('New Item Class Selected: %s', currItemClass);
+  }, [currItemClass])
 
-    useEffect(() => {
-        fetchItems();
-        console.log("New Item Class Selected: %s", currItemClass);
-    }, [currItemClass])
-
-    function handleOrderView() {
-        setOrderView(true);
-    };
+  function handleOrderView() {
+    setOrderView(true);
+  };
 
     return (
-        <div className="backsplash">
+        <div className='backsplash'>
 
             <header>
-                <NavBar change={handleCurrItemClass} orderView={handleOrderView} />
+                <NavBar change={handleCurrItemClass} orderView={
+    handleOrderView} />
             </header>
             <main>
-                {!orderView && <div className="POS-container">
-                    <div className="Menu-grid">
+                {!orderView && <div className='POS-container'>
+                    <div className='Menu-grid'>
                         {items.map(item => (
-                            <div key={item.menuitemid} className="MenuItem-block">
-                                <button className="Item-Button"
+                            <div key={item.menuitemid} className='MenuItem-block'>
+                                <button className='Item-Button'
                                     onClick={() => handleItemClick(item)}>{item.name}
                                 </button>
 
@@ -71,7 +76,7 @@ function Home() {
                         {currentOrder && currentOrder.map((item) => (
                             <div key={item.menuitemid} className="MenuItem-block">
                                 <p className="Item-Button">{item.name}</p>
-                                <p className="Item-Price">${item.menuprice.toFixed(2)}</p>
+                                <p className='Item-Price'>${item.menuprice.toFixed(2)}</p>
                             </div>
                         ))}
                     </div>
@@ -80,7 +85,6 @@ function Home() {
 
         </div>
     )
-
 }
 
 
