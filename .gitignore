@@ -6,5 +6,6 @@
 .vscode/*
 
 */.env
+*/backend/.env
 src/backend/node_modules
 src/backend/node_modules/.*
