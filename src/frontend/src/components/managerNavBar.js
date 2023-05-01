@@ -6,7 +6,7 @@ import "./server.css"
 import logo from "./revsLogo.png"
 import LogoutButton from "./logoutButton"
 
-function NavBar() {
+function NavBar({ server, view }) {
   return (
     <>
       <Navbar className="nav">
@@ -21,7 +21,7 @@ function NavBar() {
           <Nav.Link className="nav-button" href="Restock_Report">Restock</Nav.Link>
           <Nav.Link className="nav-button" href="Inventory">Inventory</Nav.Link>
           <Nav.Link className="nav-button" href="Menu">Menu</Nav.Link>
-          <button class="nav-button" onClick={localStorage.setItem('viewingClass', 0)} >POS</button>
+          <button class="nav-button" onClick={() => server()} >POS</button>
           <LogoutButton class="nav-button" />
         </Container>
       </Navbar>

@@ -1,40 +1,73 @@
-import React from "react";
-import { useAuth0 } from "@auth0/auth0-react";
-import SalesReport from "./Sales.jsx";
-import XReport from "./XReport.jsx";
-import ZReport from "./ZReport.jsx";
-import ExcessReport from "./Excess.jsx";
-import RestockReport from "./Restock.jsx";
-import Inventory from "./Inventory.jsx";
-import Menu from "./Menu.jsx";
-import ServerView from "../server-pages/Home";
-
-import {
-    BrowserRouter as
-        Router,
-    Routes,
-    Route,
-    Navigate
-
-} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import "../components/server.css"
+import Employee from "../components/serverEmployee"
+import NavBar from "../components/managerNavBar"
+import ServerView from "../server-pages/Home"
+import axios from "axios"
 
 
 function Home() {
-    return (
-        <Router>
-            <Routes>
-                <Route path="/" element={<Navigate to="/Sales_Report" />} />
-                <Route path="/Sales_Report" element={<SalesReport />} />
-                <Route path="/X_Report" element={<XReport />} />
-                <Route path="/Z_Report" element={<ZReport />} />
-                <Route path="/Excess_Report" element={<ExcessReport />} />
-                <Route path="/Restock_Report" element={<RestockReport />} />
-                <Route path="/Inventory" element={<Inventory />} />
-                <Route path="/MenuItems" element={<Menu />} />
-            </Routes>
-        </Router>
 
-    );
+    const [view, setView] = useState(0);
+    const [serverView, setServerView] = useState(false);
+
+    useEffect(() => {
+        console.log(serverView);
+    }, [serverView])
+
+    function handleServerView() {
+        setServerView(true);
+    };
+
+    function handleView(view) {
+        setView(view);
+    };
+
+
+    return (
+        <div>
+            {!serverView && <div className="backsplash">
+
+                <header>
+                    <NavBar server={handleServerView} view={handleView} />
+                </header>
+                <main>
+                    <Employee />
+
+
+                    {view == 0 && <div className="Salse">
+
+                    </div>}
+                    {view == 1 && <div className="Content">
+
+                    </div>}
+                    {view == 2 && <div className="Content">
+
+                    </div>}
+                    {view == 3 && <div className="Content">
+
+                    </div>}
+                    {view == 4 && <div className="Content">
+
+                    </div>}
+                    {view == 5 && <div className="Content">
+
+                    </div>}
+                    {view == 6 && <div className="Content">
+
+                    </div>}
+                    {view == 7 && <div className="Content">
+
+                    </div>}
+
+                </main>
+
+            </div>}
+
+            {serverView && <ServerView userClass={1} />}
+        </div>
+
+    )
 
 
 
