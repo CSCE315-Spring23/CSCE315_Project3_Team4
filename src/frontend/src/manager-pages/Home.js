@@ -35,7 +35,7 @@ function Home() {
                     <Employee />
 
 
-                    {view == 0 && <div className="Salse">
+                    {view == 0 && <div className="Sales">
 
                     </div>}
                     {view == 1 && <div className="Content">

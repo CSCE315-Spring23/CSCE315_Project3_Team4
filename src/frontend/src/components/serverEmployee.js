@@ -2,10 +2,11 @@ import React from 'react'
 import "./server.css"
 
 
-function serverEmployee({ userClass }) {
+function serverEmployee() {
+  const user = JSON.parse(localStorage.getItem('user'));
   return (
     <div className="Employee-box">
-      <p>Employee: Insert Employee Variable Here Later</p>
+      <p>{user.user_metadata.employeeID} - {user.name}</p>
     </div>
   )
 }
