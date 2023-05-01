@@ -1,8 +1,8 @@
 var pg = require("pg");
 const path = require("path");
 // require('dotenv').config({path: path.resolve(__dirname, '../../.env')});
-// require("dotenv").config({ path: "/etc/secrets/.env" });
-require("dotenv").config();
+require("dotenv").config({ path: "/etc/secrets/.env" });
+// require("dotenv").config();
 
 console.log(process.env.PSQL_DATABASE);
 
