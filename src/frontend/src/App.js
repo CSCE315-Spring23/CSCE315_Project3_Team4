@@ -6,9 +6,7 @@ import ServerView from "./server-pages/Home";
 import ManagerView from "./manager-pages/Home";
 import CustomerView from "./customer-pages/Home";
 
-
 function App() {
-    return <Landing />;
     const { isLoading, isAuthenticated, error, user, logout } = useAuth0();
     localStorage.setItem("user", JSON.stringify(user));
 
@@ -28,10 +26,12 @@ function App() {
             user.user_metadata.employeeClass
         );
         switch (user.user_metadata.employeeClass) {
-            case '0': // Employee/Server
-                return (<ServerView userClass={user.user_metadata.employeeClass} />);
-            case '1': // Manager
-                return (<ManagerView />);
+            case "0": // Employee/Server
+                return (
+                    <ServerView userClass={user.user_metadata.employeeClass} />
+                );
+            case "1": // Manager
+                return <ManagerView />;
 
             case "2": // Customer (Kiosk)
                 return <CustomerView />;
