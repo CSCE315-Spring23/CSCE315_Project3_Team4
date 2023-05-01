@@ -4,6 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Landing from "./Home";
 import ServerView from "./server-pages/Home";
 import ManagerView from "./manager-pages/Home";
+import CustomerView from "./customer-pages/Home";
 
 function App() {
 
@@ -22,10 +23,13 @@ function App() {
         switch (user.user_metadata.employeeClass) {
             case '0': // Employee/Server
                 return (<ServerView />);
+
             case '1': // Manager
                 return (<ManagerView />);
-            // case '2': // Customer (Kiosk)
-            //     return (<CustomerView />);
+
+            case '2': // Customer (Kiosk)
+                return (<CustomerView />);
+                
             default:
                 console.log("User class is not recognized. User logged out.");
                 logout({ logoutParams: { returnTo: window.location.assign(window.location.origin) } });
