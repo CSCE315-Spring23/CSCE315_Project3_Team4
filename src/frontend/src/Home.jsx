@@ -2,7 +2,7 @@ import React from 'react'
 import "./Home.css"
 import logo from "./components/revsLogo.png"
 import LoginButton from "./components/loginButton.js";
-
+import WeatherWidget from './components/weatherWidget';
 
 function Login() {
   return (
@@ -10,6 +10,7 @@ function Login() {
       <img id="logo" src={logo} />
       <LoginButton class="option"> Login</LoginButton>
       <button className="option"> Menu Board (currently not functional)</button>
+      <WeatherWidget/>
     </div>
   )
 }

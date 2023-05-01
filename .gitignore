@@ -7,5 +7,6 @@
 
 */.env
 */backend/.env
+*/frontend/.env
 src/backend/node_modules
 src/backend/node_modules/.*
