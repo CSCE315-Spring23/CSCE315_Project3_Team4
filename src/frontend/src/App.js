@@ -21,7 +21,7 @@ function App() {
     if (isAuthenticated) {
         console.log(user);
         console.log("%s with ClassID: %s, is authenticated", user.name, user.user_metadata.employeeClass);
-        switch ('0') {
+        switch (user.user_metadata.employeeClass) {
             case '0': // Employee/Server
                 return (<ServerView userClass={user.user_metadata.employeeClass} />);
             case '1': // Manager
