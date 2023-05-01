@@ -11,10 +11,6 @@ function Home() {
     const [view, setView] = useState(0);
     const [serverView, setServerView] = useState(false);
 
-    useEffect(() => {
-        console.log(serverView);
-    }, [serverView])
-
     function handleServerView() {
         setServerView(true);
     };
@@ -33,10 +29,14 @@ function Home() {
                 </header>
                 <main>
                     <Employee />
+                    {view == 0 && <div>
+                        <div class="manager-tab-functions">
+                            <button> funtion 1</button>
+                            <button> funtion 2</button>
+                        </div>
+                        <div className='POS-container'>
 
-
-                    {view == 0 && <div className="Sales">
-
+                        </div>
                     </div>}
                     {view == 1 && <div className="Content">
 
