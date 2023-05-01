@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import "../components/server.css"
 import Employee from "../components/serverEmployee"
 import NavBar from "../components/serverNavBar"
+import ManagerView from "../manager-pages/Home"
 import axios from "axios"
 
-function Home() {
+function Home({ userClass }) {
 
     const [items, setItems] = useState([]);
     const [orderView, setOrderView] = useState(false);
+    const [managerView, setManagerView] = useState(false);
     var [currItemClass, setCurrItemClass] = useState(1);
     const [currentOrder, setCurrentOrder] = useState([]);
 
@@ -46,40 +48,51 @@ function Home() {
         setOrderView(true);
     };
 
+    function handleManagerView() {
+        if (userClass == 1) {
+            setManagerView(true);
+        } else {
+            console.log("Unauthorized attepmt to access manager view. UserClass = ", userClass);
+        }
+    };
+
     return (
-        <div className="backsplash">
+        <div>
+            {!managerView && <div className="backsplash">
 
-            <header>
-                <NavBar change={handleCurrItemClass} orderView={handleOrderView} />
-            </header>
-            <main>
-                <Employee />
-                {!orderView && <div className="POS-container">
-                    <div className="Menu-grid">
-                        {items.map(item => (
-                            <div key={item.menuitemid} className="MenuItem-block">
-                                <button className="Item-Button"
-                                    onClick={() => handleItemClick(item)}>{item.name}
-                                </button>
+                <header>
+                    <NavBar change={handleCurrItemClass} orderView={handleOrderView} isManager={userClass == 1} managerView={handleManagerView} />
+                </header>
+                <main>
+                    <Employee />
+                    {!orderView && <div className="POS-container">
+                        <div className="Menu-grid">
+                            {items.map(item => (
+                                <div key={item.menuitemid} className="MenuItem-block">
+                                    <button className="Item-Button"
+                                        onClick={() => handleItemClick(item)}>{item.name}
+                                    </button>
 
-                                <p className="Item-Price">${item.menuprice.toFixed(2)}</p>
-                            </div>
-                        ))}
-                    </div>
-                </div>}
+                                    <p className="Item-Price">${item.menuprice.toFixed(2)}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>}
 
-                {orderView && <div className="POS-container">
-                    <div className="Menu-grid">
-                        {currentOrder && currentOrder.map((item) => (
-                            <div key={item.menuitemid} className="MenuItem-block">
-                                <p className="Item-Button">{item.name}</p>
-                                <p className="Item-Price">${item.menuprice.toFixed(2)}</p>
-                            </div>
-                        ))}
-                    </div>
-                </div>}
-            </main>
+                    {orderView && <div className="POS-container">
+                        <div className="Menu-grid">
+                            {currentOrder && currentOrder.map((item) => (
+                                <div key={item.menuitemid} className="MenuItem-block">
+                                    <p className="Item-Button">{item.name}</p>
+                                    <p className="Item-Price">${item.menuprice.toFixed(2)}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>}
+                </main>
 
+            </div>}
+            {managerView && <ManagerView />}
         </div>
     )
 

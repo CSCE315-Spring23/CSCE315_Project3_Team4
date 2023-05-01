@@ -2,10 +2,10 @@ import React from 'react'
 import "./server.css"
 
 
-function serverEmployee() {
+function serverEmployee({ userClass }) {
   return (
     <div className="Employee-box">
-        <p>Employee: Insert Employee Variable Here Later</p>
+      <p>Employee: Insert Employee Variable Here Later</p>
     </div>
   )
 }
