@@ -110,6 +110,14 @@ const getSalesFrequentlyTogetherReport = (request, response) => {
     }
 };
 
+const getInventoryReport = (request, response) => {
+    pool.query("SELECT * from inventory", (error, results) => {
+        if (error) {
+            response.status(404).json("Error getting response");
+        } else response.status(200).json(results.rows);
+    });
+};
+
 router.get("/x-report", getXReport);
 router.get("/restock-report", getRestockReport);
 router.get("/excess-report", getExcessReport);
@@ -118,4 +126,6 @@ router.get(
     "/sales-frequently-together-report",
     getSalesFrequentlyTogetherReport
 );
+router.get("/inventory-report", getInventoryReport);
+
 module.exports = router;

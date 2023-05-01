@@ -11,6 +11,7 @@ var usersRouter = require("./api/users");
 var menuItemsRouter = require("./api/menuItemsRouter");
 var ordersRouter = require("./api/ordersRouter");
 var managerReportRouter = require("./api/managerReport");
+var managerActionRouter = require("./api/managerAction");
 
 var app = express();
 app.use(cors());
@@ -39,6 +40,7 @@ app.use("/users", usersRouter);
 app.use("/menuitems", menuItemsRouter);
 app.use("/orders", ordersRouter);
 app.use("/manager/report/", managerReportRouter);
+app.use("/manager/action/", managerActionRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
