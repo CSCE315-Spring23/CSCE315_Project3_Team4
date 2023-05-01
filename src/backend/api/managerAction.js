@@ -103,8 +103,36 @@ const updateMenuItem = (request, response) => {
     } else response.status(400).json("Bad request");
 };
 
+/* delete menu item */
+const deleteMenuItem = (request, response) => {
+    data = request.body;
+    menuitemid = data["menuitemid"]; // int
+    if (menuitemid > 0) {
+        pool.query(
+            `DELETE from menuitems WHERE menuitemid=${menuitemid}`,
+            (error, results) => {
+                if (error) {
+                    response.status(404).json("Error delete menu item");
+                } else {
+                    pool.query(
+                        "SELECT * FROM menuitems ORDER BY menuitemid",
+                        (error, results) => {
+                            if (error) {
+                                response
+                                    .status(404)
+                                    .json("Error getting response");
+                            } else response.status(200).json(results.rows);
+                        }
+                    );
+                }
+            }
+        );
+    } else response.status(400).json("Bad request");
+};
+
 router.post("/update-inventory", updateInventory);
 router.post("/add-new-menu-item", addMenuItem);
 router.post("/update-menu-item", updateMenuItem);
+router.post("/delete-menu-item", deleteMenuItem);
 
 module.exports = router;
