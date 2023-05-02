@@ -1,25 +1,64 @@
 import React, { Component } from 'react';
 import './style.css';
 import NavBar from '../components/managerNavBar';
+import axios from "axios";
+import { useState, useEffect } from 'react';
 
-class Restock extends Component {
-    state = {}
-    render() {
-        return (<body class="body">
-            <NavBar />
-            <div class="section-employee-name wf-section">
-                <div class="employee-text">
-                    <strong class="bold-text">Employee: <br></br></strong>
-                </div>
+function Restock () {
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        axios
+          .get("https://revs-grill-backend.onrender.com/manager/report/restock-report")
+          .then((response) => {
+            setData(response.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }, []);
+
+    return (<body class="body">
+        <NavBar />
+        <div class="section-employee-name wf-section">
+            <div class="employee-text">
+                <strong class="bold-text">Employee: <br></br></strong>
             </div>
-            <div class="section-pos-body wf-section">
-                <div class="pos-border"></div>
+        </div>
+        <div class="section-pos-body wf-section">
+            <div class="pos-border">
+
+            <div>
+                <h1>Restock Report</h1>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Ingredient ID</th>
+                        <th>Name</th>
+                        <th>Current Amount</th>
+                        <th>Unit</th>
+                        <th>Min Amount</th>
+                        <th>Cost</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {data.map(item => (
+                        <tr key={item.ingredientid}>
+                        <td>{item.ingredientid}</td>
+                        <td>{item.name}</td>
+                        <td>{item.curramount}</td>
+                        <td>{item.unit}</td>
+                        <td>{item.minamount}</td>
+                        <td>{item.cost}</td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
             </div>
-            <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=642d93cc43ed639de72c5d51" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-            <script src="https://uploads-ssl.webflow.com/642d93cc43ed639de72c5d51/js/webflow.7809510fd.js" type="text/javascript"></script>
-            <script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script>
-        </body>);
-    }
+
+            </div>
+        </div>
+    </body>);
 }
 
 export default Restock;
