@@ -3,6 +3,7 @@ import "../components/server.css"
 import Employee from "../components/serverEmployee"
 import NavBar from "../components/managerNavBar"
 import ServerView from "../server-pages/Home"
+import SalesReport from "../components/salesReport"
 import axios from "axios"
 
 
@@ -29,15 +30,7 @@ function Home() {
                 </header>
                 <main>
                     <Employee />
-                    {view == 0 && <div>
-                        <div class="manager-tab-functions">
-                            <button> funtion 1</button>
-                            <button> funtion 2</button>
-                        </div>
-                        <div className='POS-container'>
-
-                        </div>
-                    </div>}
+                    {view == 0 && <SalesReport />}
                     {view == 1 && <div className="Content">
 
                     </div>}
