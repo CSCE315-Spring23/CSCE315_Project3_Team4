@@ -20,14 +20,14 @@ const getSalesReport = (request, response) => {
         let startTime = request.query["start"] + " 00:00:00";
         let endTime = request.query["end"] + " 23:59:59";
         pool.query(
-            'SELECT menuitems.name as "Menu Item", COUNT(1) as "Quantity Sold" , ROUND(CAST(SUM(orderlineitems.menuprice) AS numeric), 2) as "Sales"\n' +
-                "FROM orderlineitems \n" +
-                "JOIN menuitems ON orderlineitems.menuitemID = menuitems.menuItemID JOIN orders ON orderlineitems.orderID = orders.orderID \n" +
-                "WHERE orders.ordertime BETWEEN '" +
-                startTime +
-                "' AND '" +
-                endTime +
-                "' GROUP BY menuitems.name",
+            'SELECT menuitems.menuitemid as "id", menuitems.name as "Menu Item", COUNT(1) as "Quantity Sold" , ROUND(CAST(SUM(orderlineitems.menuprice) AS numeric), 2) as "Sales"\n' +
+            "FROM orderlineitems \n" +
+            "JOIN menuitems ON orderlineitems.menuitemID = menuitems.menuItemID JOIN orders ON orderlineitems.orderID = orders.orderID \n" +
+            "WHERE orders.ordertime BETWEEN '" +
+            startTime +
+            "' AND '" +
+            endTime +
+            "' GROUP BY menuitems.name",
             (error, results) => {
                 if (error) {
                     response.status(404).json(error.toString());
@@ -61,10 +61,10 @@ const getExcessReport = (request, response) => {
         let formattedDateTime = year + "-" + month + "-" + date + " 23:59:59";
         pool.query(
             "select t2.ingredientid, t1.soldqty, t2.name, t2.currAmount, t2.unit, t2.minAmount, t2.cost from (select it.ingredientid, sum(it.qty) as soldqty from inventorytransactions as it where it.ordertime between '" +
-                startDate +
-                "' AND '" +
-                formattedDateTime +
-                "' group by it.ingredientid) t1 RIGHT JOIN (select i.ingredientID, i.name, i.currAmount, i.unit, i.minAmount, i.cost from inventory as i) t2 ON t1.ingredientID = t2.ingredientID WHERE (t1.soldqty < (t2.currAmount + t1.soldqty) * 0.1) or (soldqty is NULL);",
+            startDate +
+            "' AND '" +
+            formattedDateTime +
+            "' group by it.ingredientid) t1 RIGHT JOIN (select i.ingredientID, i.name, i.currAmount, i.unit, i.minAmount, i.cost from inventory as i) t2 ON t1.ingredientID = t2.ingredientID WHERE (t1.soldqty < (t2.currAmount + t1.soldqty) * 0.1) or (soldqty is NULL);",
             (error, results) => {
                 if (error) {
                     response.status(404).json(error.toString());
@@ -97,10 +97,10 @@ const getSalesFrequentlyTogetherReport = (request, response) => {
         let endTime = request.query["end"] + " 23:59:59";
         pool.query(
             "select t1.firstitem, t1.seconditem, t1.concat as menuitemstogether, COUNT(t1.concat) from (SELECT a.menuitemid as firstitem, b.menuitemid as seconditem, a.orderid, CONCAT(a.menuitemid, ' ', b.menuitemid) FROM orderlineitems a JOIN orderlineitems b  ON a.orderid = b.orderid and a.menuitemid < b.menuitemid) t1 INNER JOIN (select orders.ordertime, orders.orderid from orders where orders.ordertime between '" +
-                startTime +
-                "' AND '" +
-                endTime +
-                "' group by orders.orderid) t2 ON t1.orderid = t2.orderid GROUP BY t1.firstitem, t1.seconditem, t1.concat ORDER BY COUNT(t1.concat) DESC;",
+            startTime +
+            "' AND '" +
+            endTime +
+            "' group by orders.orderid) t2 ON t1.orderid = t2.orderid GROUP BY t1.firstitem, t1.seconditem, t1.concat ORDER BY COUNT(t1.concat) DESC;",
             (error, results) => {
                 if (error) {
                     response.status(404).json(error.toString());
