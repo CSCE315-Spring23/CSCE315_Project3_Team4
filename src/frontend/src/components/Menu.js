@@ -77,6 +77,7 @@ function Menu() {
                 <DataGrid
                     rows={tableData}
                     columns={columns}
+                    getRowId={(row) => row.menuitemid}
                     disableRowSelectionOnClick
                     checkboxSelection
                 />
