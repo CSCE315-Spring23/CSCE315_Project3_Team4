@@ -23,7 +23,7 @@ const updateInventory = (request, response) => {
                 } else {
                     pool.query("SELECT * from inventory", (error, results) => {
                         if (error) {
-                            response.status(404).json("Error getting response");
+                            response.status(404).json(error.toString());
                         } else response.status(200).json(results.rows);
                     });
                 }
@@ -91,9 +91,7 @@ const updateMenuItem = (request, response) => {
                         "SELECT * FROM menuitems ORDER BY menuitemid",
                         (error, results) => {
                             if (error) {
-                                response
-                                    .status(404)
-                                    .json("Error getting response");
+                                response.status(404).json(error.toString());
                             } else response.status(200).json(results.rows);
                         }
                     );
@@ -118,9 +116,7 @@ const deleteMenuItem = (request, response) => {
                         "SELECT * FROM menuitems ORDER BY menuitemid",
                         (error, results) => {
                             if (error) {
-                                response
-                                    .status(404)
-                                    .json("Error getting response");
+                                response.status(404).json(error.toString());
                             } else response.status(200).json(results.rows);
                         }
                     );

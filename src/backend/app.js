@@ -1,30 +1,29 @@
-var createError = require('http-errors');
-var express = require('express');
-var { Pool } = require('pg');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var cors = require('cors');
+var createError = require("http-errors");
+var express = require("express");
+var { Pool } = require("pg");
+var path = require("path");
+var cookieParser = require("cookie-parser");
+var logger = require("morgan");
+var cors = require("cors");
 
-// var indexRouter = require('./api/index');
-// var usersRouter = require('./api/users');
-var menuItemsRouter = require('./api/menuItemsRouter');
-var ordersRouter = require('./api/ordersRouter');
-var managerReportRouter = require('./api/managerReport');
-var managerActionRouter = require('./api/managerAction');
+var indexRouter = require("./api/index");
+var menuItemsRouter = require("./api/menuItemsRouter");
+var ordersRouter = require("./api/ordersRouter");
+var managerReportRouter = require("./api/managerReport");
+var managerActionRouter = require("./api/managerAction");
 
 var app = express();
 app.use(cors());
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
 
-app.use(logger('dev'));
+app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -34,10 +33,11 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/menuitems', menuItemsRouter);
-app.use('/orders', ordersRouter);
-app.use('/manager/report/', managerReportRouter);
-app.use('/manager/action/', managerActionRouter);
+app.use("/", indexRouter);
+app.use("/menuitems", menuItemsRouter);
+app.use("/orders", ordersRouter);
+app.use("/manager/report/", managerReportRouter);
+app.use("/manager/action/", managerActionRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -53,6 +53,7 @@ app.use(function (err, req, res, next) {
     // render the error page
     res.status(err.status || 500);
     res.render('error');
+
 });
 
 module.exports = app;
