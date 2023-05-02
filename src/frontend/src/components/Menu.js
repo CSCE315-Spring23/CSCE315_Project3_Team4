@@ -6,10 +6,10 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DataGrid } from '@mui/x-data-grid';
 
 const columns = [
-    { field: 'id', headerName: 'ID', width: 10 },
-    { field: 'Menu Item', headerName: 'Item Name', width: 500 },
-    { field: 'Quantity Sold', headerName: 'Quantity Sold', width: 200 },
-    { field: 'Sales', headerName: 'Sales', width: 100 }
+    { field: 'menuitemid', headerName: 'ID', width: 10 },
+    { field: 'name', headerName: 'Item Name', width: 500 },
+    { field: 'menuprice', headerName: 'Price', width: 200 },
+    { field: 'classid', headerName: 'Item Type', width: 100 }
 ]
 
 function Menu() {

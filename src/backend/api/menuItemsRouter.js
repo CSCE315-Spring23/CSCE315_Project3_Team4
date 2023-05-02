@@ -7,7 +7,7 @@ const getMenuItemsList = (request, response) => {
     if (request.query.class != null) {
         const classId = request.query.class;
         pool.query(
-            "SELECT * FROM menuitems WHERE classid = $1 ORDER BY menuitemid",
+            "SELECT menuitemid as 'id', name, menuprice, classid FROM menuitems WHERE classid = $1 ORDER BY menuitemid",
             [classId],
             (error, results) => {
                 if (error) {
