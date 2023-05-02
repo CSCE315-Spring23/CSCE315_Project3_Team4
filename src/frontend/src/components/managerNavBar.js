@@ -14,13 +14,13 @@ function NavBar({ server, view }) {
           <Navbar.Brand>
             <img className="nav-logo" src={logo} />
           </Navbar.Brand>
-          <Nav.Link className="nav-button" href="Sales_Report">Sales</Nav.Link>
-          <Nav.Link className="nav-button" href="X_Report">X Reoprt</Nav.Link>
-          <Nav.Link className="nav-button" href="Z_Report">Z Report</Nav.Link>
-          <Nav.Link className="nav-button" href="Excess_Report">Excess</Nav.Link>
-          <Nav.Link className="nav-button" href="Restock_Report">Restock</Nav.Link>
-          <Nav.Link className="nav-button" href="Inventory">Inventory</Nav.Link>
-          <Nav.Link className="nav-button" href="Menu">Menu</Nav.Link>
+          <button class="nav-button" onClick={() => view(0)} >Sales</button>
+          <button class="nav-button" onClick={() => view(1)} >X Reoprt</button>
+          <button class="nav-button" onClick={() => view(2)} >Z Reoprt</button>
+          <button class="nav-button" onClick={() => view(3)} >Excess</button>
+          <button class="nav-button" onClick={() => view(4)} >Restock</button>
+          <button class="nav-button" onClick={() => view(5)} >Inventory</button>
+          <button class="nav-button" onClick={() => view(6)} >Menu</button>
           <button class="nav-button" onClick={() => server()} >POS</button>
           <LogoutButton class="nav-button" />
         </Container>

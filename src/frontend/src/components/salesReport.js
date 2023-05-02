@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "../components/server.css"
-import { DateTimePicker, DateField } from '@mui/x-date-pickers';
+import { DatePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DataGrid } from '@mui/x-data-grid';
+import moment from 'moment'
 
 const columns = [
     { field: 'id', headerName: 'ID' },
-    { field: 'count', headerName: 'Amount Sold', width: 300 },
-    { field: 'sales', headerName: 'Sales', width: 600 }
+    { field: 'Menu Item', headerName: 'Item Name' },
+    { field: 'Quantity Sold', headerName: 'Quantity Sold', width: 300 },
+    { field: 'Sales', headerName: 'Sales', width: 600 }
 ]
 
 function SalesReport() {
@@ -22,11 +24,23 @@ function SalesReport() {
         console.log(tableData);
     }, [tableData])
 
+    useEffect(() => {
+        console.log("Start: ", start);
+    }, [start])
+
+    useEffect(() => {
+        console.log("End: ", end);
+    }, [end])
+
+    useEffect(() => {
+        console.log("Error: ", error);
+    }, [error])
+
     function loadData() {
-        if (!error && start && end) {
-            const startStr = start.toISOString();
-            console.log("Start String: ", start);
-            const endStr = end.toISOString();
+        if (start && end) {
+            const startStr = moment(new Date(start)).format('YYYY-MM-DD');
+            const endStr = moment(new Date(end)).format('YYYY-MM-DD');
+            console.log("Start String: ", startStr);
             console.log("End String: ", endStr);
             fetch('https://revs-grill-backend.onrender.com/manager/report/sales-report?start=' + startStr + '&end=' + endStr)
                 .then((data) => data.json())
@@ -57,9 +71,8 @@ function SalesReport() {
         <div>
             <div class="Server-Functions">
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DateTimePicker
+                    <DatePicker
                         className="Date-Time-Field"
-                        renderInput={(props) => <DateField {...props} sx={{ m: 5 }} />}
                         label="Start"
                         disableFuture
                         defaultValue={null}
@@ -71,13 +84,13 @@ function SalesReport() {
                                 helperText: errorMessage,
                             },
                         }} />
-                    <DateTimePicker
+                    <DatePicker
                         className="Date-Time-Field"
                         label="End"
                         disableFuture
                         defaultValue={null}
                         value={end}
-                        minDateTime={start}
+                        minDate={start}
                         onChange={(newValue) => setEnd(newValue)}
                         onError={(newError) => setError(newError)}
                         slotProps={{

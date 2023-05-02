@@ -273,16 +273,13 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-column-gap: 15px;
-    max-width: 1300px;
+    max-width: 1000px;
     margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: -40px;
 }
 
-.Manager-Tab-Functions>* {
-    margin-right: 5px;
-}
 
 .Field-Label {
     color: #500000;

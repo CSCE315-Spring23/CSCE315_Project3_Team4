@@ -4,6 +4,7 @@ import Employee from "../components/serverEmployee"
 import NavBar from "../components/managerNavBar"
 import ServerView from "../server-pages/Home"
 import SalesReport from "../components/salesReport"
+import Menu from "../components/Menu"
 import axios from "axios"
 
 
@@ -46,12 +47,7 @@ function Home() {
                     {view == 5 && <div className="Content">
 
                     </div>}
-                    {view == 6 && <div className="Content">
-
-                    </div>}
-                    {view == 7 && <div className="Content">
-
-                    </div>}
+                    {view == 6 && <Menu />}
 
                 </main>
 
