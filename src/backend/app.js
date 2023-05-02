@@ -7,7 +7,6 @@ var logger = require("morgan");
 var cors = require("cors");
 
 var indexRouter = require("./api/index");
-// var usersRouter = require('./api/users');
 var menuItemsRouter = require("./api/menuItemsRouter");
 var ordersRouter = require("./api/ordersRouter");
 var managerReportRouter = require("./api/managerReport");

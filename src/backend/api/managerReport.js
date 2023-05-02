@@ -30,7 +30,7 @@ const getSalesReport = (request, response) => {
                 "' GROUP BY menuitems.name",
             (error, results) => {
                 if (error) {
-                    response.status(404).json("Error getting response");
+                    response.status(404).json(error.toString());
                 } else response.status(200).json(results.rows);
             }
         );
@@ -42,7 +42,7 @@ const getXReport = (request, response) => {
         "SELECT * FROM orders WHERE date_trunc('day', ordertime) = (SELECT max(date_trunc('day', ordertime)) FROM orders)",
         (error, results) => {
             if (error) {
-                response.status(404).json("Error getting response");
+                response.status(404).json(error.toString());
             } else response.status(200).json(results.rows);
         }
     );
@@ -67,7 +67,7 @@ const getExcessReport = (request, response) => {
                 "' group by it.ingredientid) t1 RIGHT JOIN (select i.ingredientID, i.name, i.currAmount, i.unit, i.minAmount, i.cost from inventory as i) t2 ON t1.ingredientID = t2.ingredientID WHERE (t1.soldqty < (t2.currAmount + t1.soldqty) * 0.1) or (soldqty is NULL);",
             (error, results) => {
                 if (error) {
-                    response.status(404).json("Error getting response");
+                    response.status(404).json(error.toString());
                 } else response.status(200).json(results.rows);
             }
         );
@@ -80,7 +80,7 @@ const getRestockReport = (request, response) => {
         "SELECT * from inventory WHERE CURRAMOUNT < MINAMOUNT",
         (error, results) => {
             if (error) {
-                response.status(404).json("Error getting response");
+                response.status(404).json(error.toString());
             } else response.status(200).json(results.rows);
         }
     );
@@ -103,7 +103,7 @@ const getSalesFrequentlyTogetherReport = (request, response) => {
                 "' group by orders.orderid) t2 ON t1.orderid = t2.orderid GROUP BY t1.firstitem, t1.seconditem, t1.concat ORDER BY COUNT(t1.concat) DESC;",
             (error, results) => {
                 if (error) {
-                    response.status(404).json("Error getting response");
+                    response.status(404).json(error.toString());
                 } else response.status(200).json(results.rows);
             }
         );
@@ -113,7 +113,7 @@ const getSalesFrequentlyTogetherReport = (request, response) => {
 const getInventoryReport = (request, response) => {
     pool.query("SELECT * from inventory", (error, results) => {
         if (error) {
-            response.status(404).json("Error getting response");
+            response.status(404).json(error.toString());
         } else response.status(200).json(results.rows);
     });
 };
