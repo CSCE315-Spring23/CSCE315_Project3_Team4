@@ -6,6 +6,7 @@ import ServerView from "./server-pages/Home";
 import ManagerView from "./manager-pages/Home";
 import CustomerView from "./customer-pages/Home";
 
+// Document this
 function App() {
     const { isLoading, isAuthenticated, error, user, logout } = useAuth0();
     localStorage.setItem("user", JSON.stringify(user));
