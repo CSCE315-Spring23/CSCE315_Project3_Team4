@@ -1,6 +1,6 @@
 var pg = require("pg");
 const path = require("path");
-// require("dotenv").config({ path: path.resolve(__dirname, "../../.env") });
+// require("dotenv").config({ path: path.resolve(__dirname, "../../frontend/.env") });
 require("dotenv").config({ path: "/etc/secrets/.env" }); // render's .env file in /etc/secrets
 // require("dotenv").config();
 
