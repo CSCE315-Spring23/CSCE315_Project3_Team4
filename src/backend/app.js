@@ -35,6 +35,7 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use("/", indexRouter);
 app.use("/menuitems", menuItemsRouter);
 app.use("/orders", ordersRouter);
 app.use("/manager/report/", managerReportRouter);
