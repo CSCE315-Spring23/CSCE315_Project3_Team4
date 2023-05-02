@@ -7,7 +7,7 @@ const getMenuItemsList = (request, response) => {
     if (request.query.class != null) {
         const classId = request.query.class;
         pool.query(
-            "SELECT menuitemid as 'id', name, menuprice, classid FROM menuitems WHERE classid = $1 ORDER BY id",
+            "SELECT menuitemid as id, name, menuprice, classid FROM menuitems WHERE classid = $1 ORDER BY id",
             [classId],
             (error, results) => {
                 if (error) {
@@ -21,7 +21,7 @@ const getMenuItemsList = (request, response) => {
         );
     } else {
         pool.query(
-            "SELECT menuitemid as 'id', name, menuprice, classid FROM menuitems ORDER BY id",
+            "SELECT menuitemid as id, name, menuprice, classid FROM menuitems ORDER BY id",
             (error, results) => {
                 if (error) {
                     response.status(404).json("Error getting menu items");
