@@ -27,7 +27,7 @@ const getSalesReport = (request, response) => {
             startTime +
             "' AND '" +
             endTime +
-            "' GROUP BY menuitems.name",
+            "' GROUP BY menuitems.menuitemid",
             (error, results) => {
                 if (error) {
                     response.status(404).json(error.toString());
