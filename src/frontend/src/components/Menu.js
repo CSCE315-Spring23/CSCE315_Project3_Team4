@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "../components/server.css"
-import { DateTimePicker, DateField } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import CurrencyInput from 'react-currency-input-field'
 import { DataGrid } from '@mui/x-data-grid';
+
 
 const columns = [
     { field: 'menuitemid', headerName: 'ID', width: 10 },
@@ -15,10 +14,24 @@ const columns = [
 function Menu() {
 
     const [tableData, setTableData] = useState([]);
+    const [newPrice, setNewPrice] = useState([]);
+    const [selectedID, setSelectedID] = useState([]);
+
+    useEffect(() => {
+        console.log(selectedID);
+    }, [selectedID])
+
+    useEffect(() => {
+        console.log(newPrice);
+    }, [newPrice])
 
     useEffect(() => {
         console.log(tableData);
     }, [tableData])
+
+    useEffect(() => {
+        loadData();
+    }, [])
 
     function loadData() {
         fetch('https://revs-grill-backend.onrender.com/menuitems/')
@@ -27,20 +40,23 @@ function Menu() {
     }
 
     //Edit Item Price
-    function editItemPrice(itemID, newPrice) {
-        var raw = JSON.stringify({
-            "menuitemid": itemID,
-            "menuprice": newPrice
-        });
+    function editItemPrice() {
+        const raw = JSON.stringify({
+            menuitemid: selectedID,
+            menuprice: newPrice,
+        })
 
         var requestOptions = {
             method: 'POST',
             body: raw
         };
-        fetch('https://revs-grill-backend.onrender.com/manager/action/update-menu-item')
+        console.log(requestOptions.body);
+        fetch('https://revs-grill-backend.onrender.com/manager/action/update-menu-item', requestOptions);
+        setSelectedID([]);
+        setNewPrice([]);
     }
     //Add new Item
-    function editItemPrice(name, price, classID) {
+    function addMenuItem(name, price, classID) {
         var raw = JSON.stringify({
             "name": name,
             "menuprice": price,
@@ -54,7 +70,7 @@ function Menu() {
         fetch('https://revs-grill-backend.onrender.com/manager/action/add-new-menu-item')
     }
     //Delete item
-    function editItemPrice(itemID) {
+    function deleteMenuItem(itemID) {
         var raw = JSON.stringify({
             "menuitemid": itemID
         });
@@ -71,6 +87,17 @@ function Menu() {
         <div>
             <div class="Menu-Functions">
                 <button class="Manager-Tab-Button" onClick={loadData} >Load</button>
+                <CurrencyInput
+                    id="input-example"
+                    name="input-name"
+                    placeholder="New item price"
+                    prefix='$'
+                    allowNegativeValue={false}
+                    decimalScale={2}
+                    value={newPrice}
+                    onValueChange={(value) => setNewPrice(value)}
+                />
+                <button class="Manager-Tab-Button" onClick={editItemPrice}>Confirm</button>
             </div>
 
             <div className='POS-container'>
@@ -80,6 +107,16 @@ function Menu() {
                     getRowId={(row) => row.menuitemid}
                     disableRowSelectionOnClick
                     checkboxSelection
+                    disableMultipleRowSelection={true}
+                    onRowSelectionModelChange={(selection) => {
+                        if (selection.length > 1) {
+                            const latest = selection[selection.length - 1];
+                            setSelectedID(latest);
+                        } else {
+                            setSelectedID(selection[0]);
+                        }
+                    }}
+                    rowSelectionModel={selectedID}
                 />
             </div>
         </div>

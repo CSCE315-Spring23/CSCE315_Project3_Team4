@@ -7,10 +7,10 @@ import { DataGrid } from '@mui/x-data-grid';
 import moment from 'moment'
 
 const columns = [
-    { field: 'id', headerName: 'ID' },
-    { field: 'Menu Item', headerName: 'Item Name' },
-    { field: 'Quantity Sold', headerName: 'Quantity Sold', width: 300 },
-    { field: 'Sales', headerName: 'Sales', width: 600 }
+    { field: 'id', headerName: 'ID', width: 100 },
+    { field: 'Menu Item', headerName: 'Item Name', width: 600 },
+    { field: 'Quantity Sold', headerName: 'Quantity Sold', width: 200 },
+    { field: 'Sales', headerName: 'Sales', width: 200 }
 ]
 
 function SalesReport() {
