@@ -1,42 +1,40 @@
 import React, { useEffect, useState } from "react";
-import "../components/server.css"
-import CurrencyInput from 'react-currency-input-field'
-import { DataGrid } from '@mui/x-data-grid';
-
+import "../components/server.css";
+import CurrencyInput from "react-currency-input-field";
+import { DataGrid } from "@mui/x-data-grid";
 
 const columns = [
-    { field: 'menuitemid', headerName: 'ID', width: 10 },
-    { field: 'name', headerName: 'Item Name', width: 500 },
-    { field: 'menuprice', headerName: 'Price', width: 200 },
-    { field: 'classid', headerName: 'Item Type', width: 100 }
-]
+    { field: "menuitemid", headerName: "ID", width: 10 },
+    { field: "name", headerName: "Item Name", width: 500 },
+    { field: "menuprice", headerName: "Price", width: 200 },
+    { field: "classid", headerName: "Item Type", width: 100 },
+];
 
 function Menu() {
-
     const [tableData, setTableData] = useState([]);
     const [newPrice, setNewPrice] = useState([]);
     const [selectedID, setSelectedID] = useState([]);
 
     useEffect(() => {
         console.log(selectedID);
-    }, [selectedID])
+    }, [selectedID]);
 
     useEffect(() => {
         console.log(newPrice);
-    }, [newPrice])
+    }, [newPrice]);
 
     useEffect(() => {
         console.log(tableData);
-    }, [tableData])
+    }, [tableData]);
 
     useEffect(() => {
         loadData();
-    }, [])
+    }, []);
 
     function loadData() {
-        fetch('https://revs-grill-backend.onrender.com/menuitems/')
+        fetch("https://revs-grill-backend.onrender.com/menuitems/")
             .then((data) => data.json())
-            .then((data) => setTableData(data))
+            .then((data) => setTableData(data));
     }
 
     //Edit Item Price
@@ -44,63 +42,76 @@ function Menu() {
         const raw = JSON.stringify({
             menuitemid: selectedID,
             menuprice: newPrice,
-        })
+        });
 
         var requestOptions = {
-            method: 'POST',
-            body: raw
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+            },
+            method: "POST",
+            body: raw,
         };
         console.log(requestOptions.body);
-        fetch('https://revs-grill-backend.onrender.com/manager/action/update-menu-item', requestOptions);
+        fetch(
+            "https://revs-grill-backend.onrender.com/manager/action/update-menu-item",
+            requestOptions
+        );
         setSelectedID([]);
         setNewPrice([]);
     }
     //Add new Item
     function addMenuItem(name, price, classID) {
         var raw = JSON.stringify({
-            "name": name,
-            "menuprice": price,
-            "classid": classID
+            name: name,
+            menuprice: price,
+            classid: classID,
         });
 
         var requestOptions = {
-            method: 'POST',
-            body: raw
+            method: "POST",
+            body: raw,
         };
-        fetch('https://revs-grill-backend.onrender.com/manager/action/add-new-menu-item')
+        fetch(
+            "https://revs-grill-backend.onrender.com/manager/action/add-new-menu-item"
+        );
     }
     //Delete item
     function deleteMenuItem(itemID) {
         var raw = JSON.stringify({
-            "menuitemid": itemID
+            menuitemid: itemID,
         });
 
         var requestOptions = {
-            method: 'POST',
-            body: raw
+            method: "POST",
+            body: raw,
         };
-        fetch('https://revs-grill-backend.onrender.com/manager/action/delete-menu-item')
+        fetch(
+            "https://revs-grill-backend.onrender.com/manager/action/delete-menu-item"
+        );
     }
-
 
     return (
         <div>
             <div class="Menu-Functions">
-                <button class="Manager-Tab-Button" onClick={loadData} >Load</button>
+                <button class="Manager-Tab-Button" onClick={loadData}>
+                    Load
+                </button>
                 <CurrencyInput
                     id="input-example"
                     name="input-name"
                     placeholder="New item price"
-                    prefix='$'
+                    prefix="$"
                     allowNegativeValue={false}
                     decimalScale={2}
                     value={newPrice}
                     onValueChange={(value) => setNewPrice(value)}
                 />
-                <button class="Manager-Tab-Button" onClick={editItemPrice}>Confirm</button>
+                <button class="Manager-Tab-Button" onClick={editItemPrice}>
+                    Confirm
+                </button>
             </div>
 
-            <div className='POS-container'>
+            <div className="POS-container">
                 <DataGrid
                     rows={tableData}
                     columns={columns}
@@ -120,7 +131,7 @@ function Menu() {
                 />
             </div>
         </div>
-    )
+    );
 }
 
 export default Menu;
