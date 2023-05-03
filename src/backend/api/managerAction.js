@@ -51,7 +51,7 @@ const addMenuItem = (request, response) => {
             "select max(menuitemid) from menuitems",
             (error, results) => {
                 if (error) {
-                    response.status(404).json("Error get a new menuitem id");
+                    response.status(404).json(error.toString());
                 } else {
                     menuitemid = results.rows[0]["max"] + 1;
                     pool.query(
@@ -60,7 +60,7 @@ const addMenuItem = (request, response) => {
                             if (error) {
                                 response
                                     .status(400)
-                                    .json("Error create a new menu item");
+                                    .json(error.toString());
                             } else
                                 response
                                     .status(200)
@@ -85,7 +85,7 @@ const updateMenuItem = (request, response) => {
             `update menuitems set menuprice=${menuprice} where menuitemid=${menuitemid}`,
             (error, results) => {
                 if (error) {
-                    response.status(404).json("Error update menu item price");
+                    response.status(404).json(error.toString());
                 } else {
                     pool.query(
                         "SELECT * FROM menuitems ORDER BY menuitemid",
@@ -110,7 +110,7 @@ const deleteMenuItem = (request, response) => {
             `DELETE from menuitems WHERE menuitemid=${menuitemid}`,
             (error, results) => {
                 if (error) {
-                    response.status(404).json("Error delete menu item");
+                    response.status(404).json(error.toString());
                 } else {
                     pool.query(
                         "SELECT * FROM menuitems ORDER BY menuitemid",
