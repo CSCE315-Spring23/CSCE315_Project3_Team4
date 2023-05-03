@@ -9,7 +9,7 @@ function Login() {
     <div id="frame">
       <img id="logo" src={logo} />
       <LoginButton class="option"> Login</LoginButton>
-      <button className="option"> Menu Board (currently not functional)</button>
+      <button className="option"> Menu Board</button>
       <WeatherWidget/>
     </div>
   )
