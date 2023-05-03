@@ -4,6 +4,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react';
 import tempLogo from "../components/revsLogo.png"
 import NavBar from '../components/customerNavBar'
+import LogoutButton from '../components/logoutButton';
 
 function Home() {
 
@@ -12,6 +13,8 @@ function Home() {
   var [currItemClass, setCurrItemClass] = useState(1);
   const [currentOrder, setCurrentOrder] = useState([]);
   const [grandTotal, setGrandTotal] = useState(0);
+  const [showLogout, setShowLogout] = useState(false);
+  const [password, setPassword] = useState("");
 
   useEffect(() => {
     fetchItems();
@@ -52,6 +55,12 @@ function Home() {
     setOrderView(true);
     setGrandTotal(total);
   };
+
+  function ManagerLogout() {
+    if (password == '@12345') {
+      showLogout = true;
+    }
+  }
 
   return (
     <div className='backsplash'>
@@ -98,9 +107,11 @@ function Home() {
 
       </main>
 
+      <button onClick={ManagerLogout}> Manager </button>
+      <input type="text" onChange={(pswd) => setPassword(pswd)} />
+      <LogoutButton />
     </div>
-  )
+  );
 }
-
 
 export default Home;
