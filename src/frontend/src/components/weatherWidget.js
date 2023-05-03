@@ -1,0 +1,64 @@
+import React, { useState, useEffect } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import ClipLoader from "react-spinners/ClipLoader";
+
+function WeatherWidget() {
+    const [weatherResult, setWeather] = useState(null);
+    const getCurrentWeather = async (lon, lat) => {
+        let apiKey = process.env.REACT_APP_WEATHER_APP_APIKEY;
+        let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+        let data = await fetch(url);
+        let result = await data.json();
+        setWeather(result);
+    };
+
+    const getLocation = () => {
+        navigator.geolocation.getCurrentPosition((post) => {
+            getCurrentWeather(post.coords.longitude, post.coords.latitude);
+        });
+    };
+
+    useEffect(() => {
+        getLocation();
+    }, []);
+
+    if (weatherResult == null) {
+        return (
+            <div
+                style={{
+                    marginTop: "10px",
+                    marginLeft: "48%",
+                }}
+            >
+                <ClipLoader
+                    size={50}
+                    color={"#490905"}
+                    loading={true}
+                ></ClipLoader>
+            </div>
+        );
+    }
+    return (
+        <>
+            <div
+                className="container-fluid text-white my-auto"
+                style={{ maxWidth: "30%", maxHeight: "10%" }}
+            >
+                <div className="container mx-auto my-4 py-4">
+                    <div className="row justify-content-center text-center">
+                        <p
+                            className="col-12"
+                            style={{ backgroundColor: "#490905" }}
+                        >
+                            {weatherResult.main.temp} &#8451;,{" "}
+                            {weatherResult.weather[0].description} in{" "}
+                            {weatherResult.name}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </>
+    );
+}
+
+export default WeatherWidget;
