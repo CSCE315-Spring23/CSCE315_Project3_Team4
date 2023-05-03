@@ -10,3 +10,4 @@
 */frontend/.env
 src/backend/node_modules
 src/backend/node_modules/.*
+node_modules

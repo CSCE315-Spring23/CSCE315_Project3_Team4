@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react';
 import './style.css';
 import axios from "axios";
 
+/**
+ * @function Excess
+ * @description Renders an Excess Report component with a form to input a start date and a table to display the excess report data.
+ * @returns {JSX.Element} A body with the 'body' className containing a form to input a start date, and a table to display the excess report data.
+ */
 function Excess () {
     const [data, setData] = useState([]);
     const [startDate, setStartDate] = useState('');

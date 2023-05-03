@@ -2,6 +2,11 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ClipLoader from "react-spinners/ClipLoader";
 
+/**
+ * @function WeatherWidget
+ * @description Renders a weather widget displaying the current temperature, weather description, and location.
+ * @returns {JSX.Element} A React fragment containing a weather widget with the current temperature, weather description, and location.
+ */
 function WeatherWidget() {
     const [weatherResult, setWeather] = useState(null);
     const getCurrentWeather = async (lon, lat) => {

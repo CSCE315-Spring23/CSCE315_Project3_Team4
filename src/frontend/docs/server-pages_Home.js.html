@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: server-pages/Home.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: server-pages/Home.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import '../components/server.css'
+
+import axios from 'axios'
+import React, {useEffect, useState} from 'react';
+
+import tempLogo from '../components/revsLogo.png'
+import Employee from '../components/serverEmployee'
+import NavBar from '../components/serverNavBar'
+import ManagerView from '../manager-pages/Home'
+
+/**
+ * @function Home
+ * @description Renders the Home component with navigation bar, employee, menu
+ * items, order view, and optional manager view based on the user class.
+ * @param {Object} props - The properties passed to the component.
+ * @param {number} props.userClass - The user class (1 for managers, 2 for
+ *     servers).
+ * @returns {JSX.Element} A div containing a navigation bar, employee, menu
+ *     items, order view, and optional manager view based on the user class.
+ */
+function Home({userClass}) {
+  const [items, setItems] = useState([]);
+  const [orderView, setOrderView] = useState(false);
+  var [currItemClass, setCurrItemClass] = useState(1);
+  const [managerView, setManagerView] = useState(false);
+  const [currentOrder, setCurrentOrder] = useState([]);
+  const [grandTotal, setGrandTotal] = useState(0);
+
+  useEffect(() => {
+    fetchItems();
+  }, [])
+
+  const fetchItems =
+      async () => {
+    const response = await axios.get(
+        'https://revs-grill-backend.onrender.com/menuItems/?class=' +
+        currItemClass);
+    setItems(response.data);
+    setOrderView(false);
+  }
+
+  useEffect(() => {
+    console.log(items);
+  }, [items])
+
+  const handleItemClick = (item) => {
+    setCurrentOrder([...currentOrder, item]);
+  };
+
+  useEffect(() => {
+    console.log(currentOrder);
+  }, [currentOrder])
+
+  function handleCurrItemClass(newClass) {
+    setCurrItemClass(newClass);
+  }
+
+  useEffect(() => {
+    fetchItems();
+    console.log('New Item Class Selected: %s', currItemClass);
+  }, [currItemClass])
+
+  /**
+   * @function handleOrderView
+   * @description Calculates the grand total of the current order and sets the
+   * order view state to true.
+   */
+  function handleOrderView() {
+    const total = currentOrder.reduce((acc, item) => acc + item.menuprice, 0);
+    setOrderView(true);
+    setGrandTotal(total);
+  };
+
+  /**
+   * @function handleManagerView
+   * @description Sets the manager view state to true if the user class is 1
+   * (manager), otherwise logs an unauthorized attempt message.
+   */
+  function handleManagerView() {
+    if (userClass == 1) {
+      setManagerView(true);
+    } else {
+      console.log(
+          'Unauthorized attempt to access manager view. UserClass = ',
+          userClass);
+    }
+  };
+
+    return (
+        &lt;div>
+            {!managerView &amp;&amp; &lt;div className='backsplash'>
+
+                &lt;header>
+                    &lt;NavBar change={handleCurrItemClass} orderView={handleOrderView} isManager={userClass == 1} managerView={
+                        handleManagerView} />
+                &lt;/header>
+                &lt;main>
+                    &lt;Employee />
+                    {!orderView &amp;&amp; &lt;div className='POS-container'>
+                        &lt;div className='Menu-grid'>
+                            {items.map(item => (
+                                &lt;div key={item.menuitemid} className='MenuItem-block'>
+                                    &lt;button className='Item-Button'
+                                        onClick={() => handleItemClick(item)}>{item.name}
+                                    &lt;/button>
+
+                                    &lt;p className="Item-Price">${item.menuprice.toFixed(2)}&lt;/p>
+                                &lt;/div>
+                            ))}
+                        &lt;/div>
+                    &lt;/div>}
+
+                    {orderView &amp;&amp; (
+                        &lt;div className="Order-container">
+                            &lt;div className="Order-block">
+                                &lt;div className="Invoice-Title">Your Order&lt;/div>
+                                &lt;div>
+                                    {currentOrder &amp;&amp;
+                                        currentOrder.map((item) => (
+                                            &lt;div key={item.menuitemid} className='Invoice-Image-Readjust'>
+                                                &lt;div className='Invoice-Item-Image'> &lt;img src={tempLogo} alt={item.name} className='Invoice-Image-Readjust' /> &lt;/div>
+                                                &lt;div className="Invoice-Item-Name">{item.name}&lt;/div>
+                                                &lt;div className='Invoice-Item-Price'> ${item.menuprice.toFixed(2)} &lt;/div>
+                                            &lt;/div>
+                                        ))}
+                                &lt;/div>
+                            &lt;/div>
+
+                            &lt;div className='GrandTotal-box'> Grand Total: ${grandTotal.toFixed(2)} &lt;/div>
+                        &lt;/div>
+                    )}
+
+                &lt;/main>
+
+            &lt;/div>}
+            {managerView &amp;&amp; &lt;ManagerView />}
+        &lt;/div>
+    )
+}
+
+export default Home;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Excess">Excess</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#Inventory">Inventory</a></li><li><a href="global.html#Login">Login</a></li><li><a href="global.html#LogoutButton">LogoutButton</a></li><li><a href="global.html#ManagerLogout">ManagerLogout</a></li><li><a href="global.html#Menu">Menu</a></li><li><a href="global.html#NavBar">NavBar</a></li><li><a href="global.html#Restock">Restock</a></li><li><a href="global.html#SalesReport">SalesReport</a></li><li><a href="global.html#WeatherWidget">WeatherWidget</a></li><li><a href="global.html#XReport">XReport</a></li><li><a href="global.html#ZReport">ZReport</a></li><li><a href="global.html#customerNavBar">customerNavBar</a></li><li><a href="global.html#editItemPrice">editItemPrice</a></li><li><a href="global.html#handleManagerView">handleManagerView</a></li><li><a href="global.html#handleOrderView">handleOrderView</a></li><li><a href="global.html#loadData">loadData</a></li><li><a href="global.html#loginButton">loginButton</a></li><li><a href="global.html#serverEmployee">serverEmployee</a></li><li><a href="global.html#serverNavBar">serverNavBar</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed May 03 2023 15:00:20 GMT-0500 (Central Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

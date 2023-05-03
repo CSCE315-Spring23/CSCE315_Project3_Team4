@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react';
 import './style.css';
 import axios from "axios";
 
+/**
+ * @function ZReport
+ * @description Renders a Z Report component with a table to display the Z report data.
+ * @returns {JSX.Element} A body with the 'body' className containing a table to display the Z report data.
+ */
 function ZReport() {
     const [data, setData] = useState([]);
 

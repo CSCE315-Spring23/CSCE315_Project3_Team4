@@ -10,6 +10,11 @@ const columns = [
     { field: "classid", headerName: "Item Type", width: 100 },
 ];
 
+/**
+ * Renders the Menu component which displays a table of menu items fetched from a remote server and provides functionality to add, delete, and edit menu items. Uses useState and useEffect hooks to manage component state and API calls.
+ *
+ * @returns {JSX.Element} A React component representing the Menu page
+ */
 function Menu() {
     const [tableData, setTableData] = useState([]);
     const [newPrice, setNewPrice] = useState([]);
@@ -31,13 +36,25 @@ function Menu() {
         loadData();
     }, []);
 
+    /**
+   * Fetches menu items from the API and sets the data into the state.
+   * @function
+   * @name loadData
+   * @returns {void}
+   */
     function loadData() {
         fetch("https://revs-grill-backend.onrender.com/menuitems/")
             .then((data) => data.json())
             .then((data) => setTableData(data));
     }
 
-    //Edit Item Price
+    /**
+     * Edits the price of a menu item in the backend using a POST request.
+     *
+     * @function
+     * @name editItemPrice
+     * @returns {void}
+     */
     function editItemPrice() {
         const raw = JSON.stringify({
             menuitemid: selectedID,
@@ -59,7 +76,15 @@ function Menu() {
         setSelectedID([]);
         setNewPrice([]);
     }
-    //Add new Item
+
+    /**
+     * Add a new menu item to the backend
+     *
+     * @param {string} name - The name of the menu item to be added
+     * @param {number} price - The price of the menu item to be added
+     * @param {number} classID - The class ID of the menu item to be added
+     * @return {void}
+     */
     function addMenuItem(name, price, classID) {
         var raw = JSON.stringify({
             name: name,
@@ -75,7 +100,12 @@ function Menu() {
             "https://revs-grill-backend.onrender.com/manager/action/add-new-menu-item"
         );
     }
-    //Delete item
+
+    /**
+     * Delete a menu item with the given item ID.
+     * @param {number} itemID - The ID of the menu item to delete.
+     * @returns {void}
+     */
     function deleteMenuItem(itemID) {
         var raw = JSON.stringify({
             menuitemid: itemID,

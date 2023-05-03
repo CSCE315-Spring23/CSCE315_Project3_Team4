@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react';
 import './style.css';
 import axios from "axios";
 
+/**
+ * @function Inventory
+ * @description Renders an Inventory component with a table to display the inventory data and a form to update the inventory.
+ * @returns {JSX.Element} A body with the 'body' className containing a table to display the inventory data, and a form to update the inventory.
+ */
 function Inventory () {
     const [data, setData] = useState([]);
     const [formData, setFormData] = useState({ingredientid: null, curramount: null, minamount: null});
