@@ -33,6 +33,15 @@ function Home() {
     console.log(items);
   }, [items])
 
+  useEffect(() => {
+    console.log(password);
+    if (password == '@12345') {
+      setShowLogout(true);
+    } else {
+      setShowLogout(false);
+    }
+  }, [password])
+
   const handleItemClick = (item) => {
     setCurrentOrder([...currentOrder, item]);
   };
@@ -56,10 +65,8 @@ function Home() {
     setGrandTotal(total);
   };
 
-  function ManagerLogout() {
-    if (password == '@12345') {
-      showLogout = true;
-    }
+  function updatePassword() {
+    setPassword(document.getElementById('pass').value);
   }
 
   return (
@@ -107,9 +114,8 @@ function Home() {
 
       </main>
 
-      <button onClick={ManagerLogout}> Manager </button>
-      <input type="text" onChange={(pswd) => setPassword(pswd)} />
-      <LogoutButton />
+      <input id="pass" type="password" onChange={updatePassword} />
+      {showLogout && <LogoutButton />}
     </div>
   );
 }
