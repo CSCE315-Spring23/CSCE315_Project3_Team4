@@ -4,6 +4,9 @@ import axios from "axios";
 
 function Inventory () {
     const [data, setData] = useState([]);
+    const [ingredientid, setIngredientId] = useState(null);
+    const [curramount, setCurrAmount] = useState(null);
+    const [minamount, setMinAmount] = useState(null);
     const [formData, setFormData] = useState({ingredientid: null, curramount: null, minamount: null});
 
     useEffect(() => {
@@ -17,25 +20,49 @@ function Inventory () {
           });
       }, []);
 
-    const handleInputChange = (event) => {
+    const handleIngredientId = (event) => {
         const target = event.target;
         const value = target.value;
         const name = target.name;
         setFormData({...formData, [name]: value});
+        setIngredientId(event.target.value);
+        console.log("event val", ingredientid);
+    }
+    const handleMinAmount = (event) => {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+        setFormData({...formData, [name]: value});
+        setMinAmount(event.target.value);
+        console.log("event val", ingredientid);
+    }
+
+    const handleCurrAmount = (event) => {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+        setFormData({...formData, [name]: value});
+        setCurrAmount(event.target.value);
+        console.log("event val", ingredientid);
     }
 
     const handleSubmit = (event,ingredientid,curramount,minamount) => {
+        
         event.preventDefault();
         var raw = JSON.stringify({
-            "ingredientid": new Number(ingredientid),
-            "curramount": new Number(curramount),
-            "minamount": new Number(minamount)
+            "ingredientid": ingredientid,
+            "curramount": curramount,
+            "minamount": minamount
         });
 
         var requestOptions = {
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+            },
             method: 'POST',
             body: raw
         };
+        console.log(requestOptions);
         fetch('https://revs-grill-backend.onrender.com/manager/action/update-inventory',requestOptions)
     }
 
@@ -78,17 +105,17 @@ function Inventory () {
                 <form onSubmit={handleSubmit} id = "form1">
                     <label>
                         Ingredient ID:
-                        <input type="text" name="ingredientid" value={formData.ingredientid} onChange={handleInputChange} />
+                        <input type="text" name="ingredientid" value={formData.ingredientid} onChange={handleIngredientId} />
                     </label>
                     <br />
                     <label>
                         New Current Amount:
-                        <input type="text" name="curramount" value={formData.curramount} onChange={handleInputChange} />
+                        <input type="text" name="curramount" value={formData.curramount} onChange={handleCurrAmount} />
                     </label>
                     <br />
                     <label>
                         New Min Amount:
-                        <input type="text" name="minamount" value={formData.minamount} onChange={handleInputChange} />
+                        <input type="text" name="minamount" value={formData.minamount} onChange={handleMinAmount} />
                     </label>
                     <br />
                     <button form = "form1" type="submit">Update</button>
