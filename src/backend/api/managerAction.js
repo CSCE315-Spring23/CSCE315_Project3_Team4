@@ -83,7 +83,7 @@ const updateMenuItem = (request, response) => {
             `update menuitems set menuprice=${menuprice} where menuitemid=${menuitemid}`,
             (error, results) => {
                 if (error) {
-                    response.status(404).json(error.toString());
+                    response.status(404).json(error.toString);
                 } else {
                     pool.query(
                         "SELECT * FROM menuitems ORDER BY menuitemid",
