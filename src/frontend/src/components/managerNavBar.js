@@ -22,7 +22,7 @@ function NavBar({ server, view }) {
           <button class="nav-button" onClick={() => view(5)} >Inventory</button>
           <button class="nav-button" onClick={() => view(6)} >Menu</button>
           <button class="nav-button" onClick={() => server()} >POS</button>
-          <LogoutButton class="nav-button" />
+          <LogoutButton class="nav-button-accent" />
         </Container>
       </Navbar>
     </>

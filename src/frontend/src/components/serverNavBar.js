@@ -27,7 +27,7 @@ function serverNavBar({ change, orderView, isManager, managerView }) {
           <button class="nav-button" onClick={() => change(5)} >Sides</button>
           <button class="nav-button" onClick={() => orderView()} >Order</button>
           {isManager && <button class="nav-button" onClick={() => managerView()} >Manager</button>}
-          <LogoutButton class="nav-button" />
+          <LogoutButton class="nav-button-accent" />
         </Container>
       </Navbar>
     </>
