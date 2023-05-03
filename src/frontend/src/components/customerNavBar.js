@@ -1,6 +1,7 @@
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import React, { useState } from 'react'
+import WeatherWidget from "../components/weatherWidget"
 import "./server.css"
 import logo from "./revsLogo.png"
 
@@ -15,7 +16,9 @@ function customerNavBar({ change, orderView }) {
   return (
     <>
       <Navbar className="nav">
+        <WeatherWidget/>
         <Container>
+          
           <Navbar.Brand>
             <img className="nav-logo" src={logo} />
           </Navbar.Brand>

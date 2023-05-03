@@ -37,7 +37,7 @@ function WeatherWidget() {
         <>
             <div
                 className="container-fluid text-white my-auto"
-                style={{ maxWidth: "30%", maxHeight: "10%" }}
+                style={{ maxWidth: "13%", maxHeight: "20%" }}
             >
                 <div className="container mx-auto my-4 py-4">
                     <div className="row justify-content-center text-center">

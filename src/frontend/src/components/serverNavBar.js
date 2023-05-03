@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import "./server.css"
 import logo from "./revsLogo.png"
 import LogoutButton from "./logoutButton"
+import WeatherWidget from './weatherWidget';
 
 function serverNavBar({ change, orderView, isManager, managerView }) {
 
@@ -16,6 +17,7 @@ function serverNavBar({ change, orderView, isManager, managerView }) {
   return (
     <>
       <Navbar className="nav">
+      <WeatherWidget/>
         <Container>
           <Navbar.Brand>
             <img className="nav-logo" src={logo} />
@@ -28,6 +30,7 @@ function serverNavBar({ change, orderView, isManager, managerView }) {
           <button class="nav-button" onClick={() => orderView()} >Order</button>
           {isManager && <button class="nav-button" onClick={() => managerView()} >Manager</button>}
           <LogoutButton class="nav-button-accent" />
+          
         </Container>
       </Navbar>
     </>

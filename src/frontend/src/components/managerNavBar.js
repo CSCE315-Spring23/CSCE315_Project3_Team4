@@ -5,11 +5,13 @@ import React from 'react'
 import "./server.css"
 import logo from "./revsLogo.png"
 import LogoutButton from "./logoutButton"
+import WeatherWidget from './weatherWidget';
 
 function NavBar({ server, view }) {
   return (
     <>
       <Navbar className="nav">
+      <WeatherWidget/>
         <Container>
           <Navbar.Brand>
             <img className="nav-logo" src={logo} />
