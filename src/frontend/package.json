@@ -28,8 +28,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "env-cmd -f ../.env react-scripts --openssl-legacy-provider start",
-    "build": "env-cmd -f ../.env react-scripts --openssl-legacy-provider build",
+    "start": "env-cmd -f ../.env react-scripts start",
+    "build": "env-cmd -f ../.env react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
