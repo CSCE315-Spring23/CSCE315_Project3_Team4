@@ -9,17 +9,12 @@ function WeatherWidget() {
         let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
         let data = await fetch(url);
         let result = await data.json();
+        console.log(result);
         setWeather(result);
     };
 
-    const getLocation = () => {
-        navigator.geolocation.getCurrentPosition((post) => {
-            getCurrentWeather(post.coords.longitude, post.coords.latitude);
-        });
-    };
-
     useEffect(() => {
-        getLocation();
+        getCurrentWeather(-96.3344, 30.628);
     }, []);
 
     if (weatherResult == null) {
