@@ -2403,6 +2403,7 @@ textarea.w-select {
   border: 5px solid #500000;
   border-radius: 20px;
   position: relative;
+  overflow: auto;
 }
 
 .grid---pos {
@@ -2430,6 +2431,7 @@ textarea.w-select {
 table {
   width: 100%;
   border-collapse: collapse;
+  overflow: auto;
 }
 
 th,
@@ -2437,6 +2439,7 @@ td {
   padding: 8px;
   text-align: left;
   border-bottom: 1px solid #ddd;
+  box-sizing: border-box
 }
 
 th {
@@ -2444,8 +2447,10 @@ th {
   font-weight: bold;
   color: #333;
   border-top: 1px solid #ddd;
+  box-sizing: border-box
 }
 
 tr:hover {
   background-color: #f5f5f5;
 }
+

@@ -15,8 +15,8 @@ function NavBar({ server, view }) {
             <img className="nav-logo" src={logo} />
           </Navbar.Brand>
           <button class="nav-button" onClick={() => view(0)} >Sales</button>
-          <button class="nav-button" onClick={() => view(1)} >X Reoprt</button>
-          <button class="nav-button" onClick={() => view(2)} >Z Reoprt</button>
+          <button class="nav-button" onClick={() => view(1)} >X Report</button>
+          <button class="nav-button" onClick={() => view(2)} >Z Report</button>
           <button class="nav-button" onClick={() => view(3)} >Excess</button>
           <button class="nav-button" onClick={() => view(4)} >Restock</button>
           <button class="nav-button" onClick={() => view(5)} >Inventory</button>

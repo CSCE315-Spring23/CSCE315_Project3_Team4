@@ -8,6 +8,8 @@ import Menu from "../components/Menu"
 import Restock from "./Restock"
 import XReport from "./XReport"
 import ZReport from "./ZReport"
+import Excess from "./Excess"
+import Inventory from "./Inventory"
 import axios from "axios"
 
 
@@ -37,13 +39,9 @@ function Home() {
                     {view == 0 && <SalesReport />}
                     {view == 1 && <XReport />}
                     {view == 2 && <ZReport />}
-                    {view == 3 && <div className="Content">
-
-                    </div>}
+                    {view == 3 && <Excess />}
                     {view == 4 && <Restock />}
-                    {view == 5 && <div className="Content">
-
-                    </div>}
+                    {view == 5 && <Inventory />}
                     {view == 6 && <Menu />}
 
                 </main>
