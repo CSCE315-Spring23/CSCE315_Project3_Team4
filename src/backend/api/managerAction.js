@@ -10,7 +10,7 @@ router.get("/", function (req, res, next) {
 
 /* Update the quantity or the minimum ammount of the selected inventory item */
 const updateInventory = (request, response) => {
-    data = request.body;
+    data = JSON.parse(JSON.stringify(request.body));
     ingredientid = data["ingredientid"];
     curramount = data["curramount"];
     minamount = data["minamount"];
@@ -37,9 +37,9 @@ const updateInventory = (request, response) => {
 
 /* Add menu item */
 const addMenuItem = (request, response) => {
-    data = request.body;
+    data = JSON.parse(JSON.stringify(request.body));
     menuname = data["name"]; // string
-    menuprice = data["menuprice"]; // float
+    menuprice = parseFloat(["menuprice"]); // float
     menuclassid = data["classid"]; // int
     if (
         menuname.length > 0 &&
@@ -51,16 +51,14 @@ const addMenuItem = (request, response) => {
             "select max(menuitemid) from menuitems",
             (error, results) => {
                 if (error) {
-                    response.status(404).json("Error get a new menuitem id");
+                    response.status(404).json(error.toString());
                 } else {
                     menuitemid = results.rows[0]["max"] + 1;
                     pool.query(
                         `insert into menuitems values (${menuitemid}, '${menuname}', ${menuprice}, ${menuclassid})`,
                         (error, results) => {
                             if (error) {
-                                response
-                                    .status(400)
-                                    .json("Error create a new menu item");
+                                response.status(400).json(error.toString());
                             } else
                                 response
                                     .status(200)
@@ -77,15 +75,16 @@ const addMenuItem = (request, response) => {
 
 /* Update menu item */
 const updateMenuItem = (request, response) => {
-    data = request.body;
+    data = JSON.parse(JSON.stringify(request.body));
+    console.log("backend", data);
     menuitemid = data["menuitemid"]; // int
-    menuprice = data["menuprice"]; // float
+    menuprice = parseFloat(data["menuprice"]); // float
     if (menuitemid > 0 && menuprice > 0) {
         pool.query(
             `update menuitems set menuprice=${menuprice} where menuitemid=${menuitemid}`,
             (error, results) => {
                 if (error) {
-                    response.status(404).json("Error update menu item price");
+                    response.status(404).json(error.toString);
                 } else {
                     pool.query(
                         "SELECT * FROM menuitems ORDER BY menuitemid",
@@ -103,14 +102,14 @@ const updateMenuItem = (request, response) => {
 
 /* delete menu item */
 const deleteMenuItem = (request, response) => {
-    data = request.body;
+    data = JSON.parse(JSON.stringify(request.body));
     menuitemid = data["menuitemid"]; // int
     if (menuitemid > 0) {
         pool.query(
             `DELETE from menuitems WHERE menuitemid=${menuitemid}`,
             (error, results) => {
                 if (error) {
-                    response.status(404).json("Error delete menu item");
+                    response.status(404).json(error.toString());
                 } else {
                     pool.query(
                         "SELECT * FROM menuitems ORDER BY menuitemid",
