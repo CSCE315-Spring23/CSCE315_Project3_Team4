@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react';
 import './style.css';
 import axios from "axios";
 
+/**
+ * @function Restock
+ * @description Renders a Restock Report component with a table to display the restock report data.
+ * @returns {JSX.Element} A body with the 'body' className containing a table to display the restock report data.
+ */
 function Restock () {
     const [data, setData] = useState([]);
 

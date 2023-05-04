@@ -2,8 +2,14 @@ import React, { useState, useEffect } from 'react';
 import './style.css';
 import axios from "axios";
 
+/**
+ * @function Inventory
+ * @description Renders an Inventory component with a table to display the inventory data and a form to update the inventory.
+ * @returns {JSX.Element} A body with the 'body' className containing a table to display the inventory data, and a form to update the inventory.
+ */
 function Inventory () {
     const [data, setData] = useState([]);
+    const [formData, setFormData] = useState({ingredientid: null, curramount: null, minamount: null});
 
     useEffect(() => {
         axios
@@ -15,6 +21,28 @@ function Inventory () {
             console.log(error);
           });
       }, []);
+
+    const handleInputChange = (event) => {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+        setFormData({...formData, [name]: value});
+    }
+
+    const handleSubmit = (event,ingredientid,curramount,minamount) => {
+        event.preventDefault();
+        var raw = JSON.stringify({
+            "ingredientid": new Number(ingredientid),
+            "curramount": new Number(curramount),
+            "minamount": new Number(minamount)
+        });
+
+        var requestOptions = {
+            method: 'POST',
+            body: raw
+        };
+        fetch('https://revs-grill-backend.onrender.com/manager/action/update-inventory',requestOptions)
+    }
 
     return (<body class="body">
         <div class="section-pos-body wf-section">
@@ -49,6 +77,29 @@ function Inventory () {
                 </div>
 
             </div>
+
+            <div>
+                <h2>Update Inventory</h2>
+                <form onSubmit={handleSubmit} id = "form1">
+                    <label>
+                        Ingredient ID:
+                        <input type="text" name="ingredientid" value={formData.ingredientid} onChange={handleInputChange} />
+                    </label>
+                    <br />
+                    <label>
+                        New Current Amount:
+                        <input type="text" name="curramount" value={formData.curramount} onChange={handleInputChange} />
+                    </label>
+                    <br />
+                    <label>
+                        New Min Amount:
+                        <input type="text" name="minamount" value={formData.minamount} onChange={handleInputChange} />
+                    </label>
+                    <br />
+                    <button form = "form1" type="submit">Update</button>
+                </form>
+            </div>
+
         </div>
     </body>);
 }

@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react';
 import './style.css';
 import axios from "axios";
 
+/**
+ * @function XReport
+ * @description Renders an X Report component with a table to display the X report data.
+ * @returns {JSX.Element} A body with the 'body' className containing a table to display the X report data.
+ */
 function XReport() {
     const [data, setData] = useState([]);
 

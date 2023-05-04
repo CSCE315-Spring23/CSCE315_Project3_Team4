@@ -2,6 +2,11 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ClipLoader from "react-spinners/ClipLoader";
 
+/**
+ * @function WeatherWidget
+ * @description Renders a weather widget displaying the current temperature, weather description, and location.
+ * @returns {JSX.Element} A React fragment containing a weather widget with the current temperature, weather description, and location.
+ */
 function WeatherWidget() {
     const [weatherResult, setWeather] = useState(null);
     const getCurrentWeather = async (lon, lat) => {
@@ -37,7 +42,7 @@ function WeatherWidget() {
         <>
             <div
                 className="container-fluid text-white my-auto"
-                style={{ maxWidth: "30%", maxHeight: "10%" }}
+                style={{ maxWidth: "13%", maxHeight: "20%" }}
             >
                 <div className="container mx-auto my-4 py-4">
                     <div className="row justify-content-center text-center">

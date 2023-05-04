@@ -39,7 +39,7 @@ const updateInventory = (request, response) => {
 const addMenuItem = (request, response) => {
     data = JSON.parse(JSON.stringify(request.body));
     menuname = data["name"]; // string
-    menuprice = data["menuprice"]; // float
+    menuprice = parseFloat(["menuprice"]); // float
     menuclassid = data["classid"]; // int
     if (
         menuname.length > 0 &&
@@ -76,8 +76,9 @@ const addMenuItem = (request, response) => {
 /* Update menu item */
 const updateMenuItem = (request, response) => {
     data = JSON.parse(JSON.stringify(request.body));
+    console.log("backend", data);
     menuitemid = data["menuitemid"]; // int
-    menuprice = data["menuprice"]; // float
+    menuprice = parseFloat(data["menuprice"]); // float
     if (menuitemid > 0 && menuprice > 0) {
         pool.query(
             `update menuitems set menuprice=${menuprice} where menuitemid=${menuitemid}`,

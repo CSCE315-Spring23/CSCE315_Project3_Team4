@@ -1,38 +1,46 @@
-import React, { useEffect, useState } from "react";
-import "../components/server.css"
-import Employee from "../components/serverEmployee"
-import NavBar from "../components/managerNavBar"
-import ServerView from "../server-pages/Home"
-import SalesReport from "../components/salesReport"
-import Menu from "../components/Menu"
-import Restock from "./Restock"
-import XReport from "./XReport"
-import ZReport from "./ZReport"
-import Excess from "./Excess"
-import Inventory from "./Inventory"
-import axios from "axios"
+import '../components/server.css'
 
+import axios from 'axios'
+import React, {useEffect, useState} from 'react';
 
+import NavBar from '../components/managerNavBar'
+import Menu from '../components/Menu'
+import SalesReport from '../components/salesReport'
+import Employee from '../components/serverEmployee'
+import ServerView from '../server-pages/Home'
+
+import Excess from './Excess'
+import Inventory from './Inventory'
+import Restock from './Restock'
+import XReport from './XReport'
+import ZReport from './ZReport'
+
+/**
+ * @function Home
+ * @description Renders the Home component with navigation bar, employee, and
+ * various report components based on the selected view.
+ * @returns {JSX.Element} A div containing a navigation bar, employee, and
+ *     various report components based on the selected view.
+ */
 function Home() {
+  const [view, setView] = useState(0);
+  const [serverView, setServerView] = useState(false);
 
-    const [view, setView] = useState(0);
-    const [serverView, setServerView] = useState(false);
+  function handleServerView() {
+    setServerView(true);
+  };
 
-    function handleServerView() {
-        setServerView(true);
-    };
-
-    function handleView(view) {
-        setView(view);
-    };
-
+  function handleView(view) {
+    setView(view);
+  };
 
     return (
         <div>
-            {!serverView && <div className="backsplash">
+            {!serverView && <div className='backsplash'>
 
                 <header>
-                    <NavBar server={handleServerView} view={handleView} />
+                    <NavBar server={handleServerView} view={
+    handleView} />
                 </header>
                 <main>
                     <Employee />
@@ -52,13 +60,6 @@ function Home() {
         </div>
 
     )
-
-
-
-
-
-
-
 }
 
 export default Home;
