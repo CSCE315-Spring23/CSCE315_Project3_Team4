@@ -41,6 +41,15 @@ function Home() {
     console.log(items);
   }, [items])
 
+  useEffect(() => {
+    console.log(password);
+    if (password == '@12345') {
+      setShowLogout(true);
+    } else {
+      setShowLogout(false);
+    }
+  }, [password])
+
   const handleItemClick = (item) => {
     setCurrentOrder([...currentOrder, item]);
   };
@@ -70,14 +79,11 @@ function Home() {
   };
 
   /**
-   * @function ManagerLogout
-   * @description Checks if the provided password is correct and sets the
-   * 'showLogout' state to true if the password matches.
+   * @function updatePassword
+   * @description Updates password with the value within the password input field
    */
-  function ManagerLogout() {
-    if (password == '@12345') {
-      showLogout = true;
-    }
+  function updatePassword() {
+    setPassword(document.getElementById('pass').value);
   }
 
   return (
@@ -125,9 +131,8 @@ function Home() {
 
       </main>
 
-      <button onClick={ManagerLogout}> Manager </button>
-      <input type='text' onChange={(pswd) => setPassword(pswd)} />
-      <LogoutButton />
+      <input id="pass" type="password" onChange={updatePassword} />
+      {showLogout && <LogoutButton />}
     </div>
   );
 }
