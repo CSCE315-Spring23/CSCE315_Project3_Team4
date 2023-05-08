@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './style.css';
 import axios from "axios";
 
@@ -9,7 +9,6 @@ import axios from "axios";
  */
 function Inventory () {
     const [data, setData] = useState([]);
-    const [formData, setFormData] = useState({ingredientid: null, curramount: null, minamount: null});
 
     useEffect(() => {
         axios
@@ -20,28 +19,30 @@ function Inventory () {
           .catch((error) => {
             console.log(error);
           });
-      }, []);
+      }, [data]);
 
-    const handleInputChange = (event) => {
-        const target = event.target;
-        const value = target.value;
-        const name = target.name;
-        setFormData({...formData, [name]: value});
-    }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const { ingredientid, minamount, curramount } = e.target.elements;
+        console.log({ingredientid: ingredientid.value, minamount: minamount.value , curramount: curramount.value});
 
-    const handleSubmit = (event,ingredientid,curramount,minamount) => {
-        event.preventDefault();
-        var raw = JSON.stringify({
-            "ingredientid": new Number(ingredientid),
-            "curramount": new Number(curramount),
-            "minamount": new Number(minamount)
+        const raw = JSON.stringify({
+            ingredientid: ingredientid.value,
+            minamount: minamount.value,
+            curramount: curramount.value,
         });
 
         var requestOptions = {
-            method: 'POST',
-            body: raw
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+            },
+            method: "POST",
+            body: raw,
         };
-        fetch('https://revs-grill-backend.onrender.com/manager/action/update-inventory',requestOptions)
+        console.log(requestOptions.body);
+        fetch('https://revs-grill-backend.onrender.com/manager/action/update-inventory', requestOptions)
+        .then(response => response.json())
+        .then(data => setData(data));
     }
 
     return (<body class="body">
@@ -80,20 +81,20 @@ function Inventory () {
 
             <div>
                 <h2>Update Inventory</h2>
-                <form onSubmit={handleSubmit} id = "form1">
+                <form id = "form1" onSubmit={handleSubmit}>
                     <label>
                         Ingredient ID:
-                        <input type="text" name="ingredientid" value={formData.ingredientid} onChange={handleInputChange} />
+                        <input type="text" name="ingredientid" id="ingredientid" />
                     </label>
                     <br />
                     <label>
                         New Current Amount:
-                        <input type="text" name="curramount" value={formData.curramount} onChange={handleInputChange} />
+                        <input type="text" name="curramount" id="curramount" />
                     </label>
                     <br />
                     <label>
                         New Min Amount:
-                        <input type="text" name="minamount" value={formData.minamount} onChange={handleInputChange} />
+                        <input type="text" name="minamount" id="minamount"/>
                     </label>
                     <br />
                     <button form = "form1" type="submit">Update</button>
