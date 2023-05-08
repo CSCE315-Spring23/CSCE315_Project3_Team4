@@ -21,11 +21,14 @@ const updateInventory = (request, response) => {
                 if (error) {
                     response.status(404).json("Error update inventory item");
                 } else {
-                    pool.query("SELECT * from inventory", (error, results) => {
-                        if (error) {
-                            response.status(404).json(error.toString());
-                        } else response.status(200).json(results.rows);
-                    });
+                    pool.query(
+                        "SELECT * from inventory ORDER BY ingredientid",
+                        (error, results) => {
+                            if (error) {
+                                response.status(404).json(error.toString());
+                            } else response.status(200).json(results.rows);
+                        }
+                    );
                 }
             }
         );

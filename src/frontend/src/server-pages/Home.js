@@ -86,6 +86,11 @@ function Home({userClass}) {
     }
   };
 
+  function placeOrder() {
+    setCurrentOrder([]);
+    setGrandTotal(0);
+  }
+
     return (
         <div>
             {!managerView && <div className='backsplash'>
@@ -126,7 +131,12 @@ function Home({userClass}) {
                                 </div>
                             </div>
 
-                            <div className='GrandTotal-box'> Grand Total: ${grandTotal.toFixed(2)} </div>
+                            <div class ="order-bottom"> 
+                              <div className='GrandTotal-box'> Grand Total: ${grandTotal.toFixed(2)} 
+                                
+                              <button className = "option2" onClick={placeOrder} > Place Order! </button>
+                              </div>
+                            </div>
                         </div>
                     )}
 

@@ -6,6 +6,7 @@ import React, {useEffect, useState} from 'react';
 import NavBar from '../components/customerNavBar'
 import LogoutButton from '../components/logoutButton';
 import tempLogo from '../components/revsLogo.png'
+import "../Home.css"
 
 
 /**
@@ -86,6 +87,11 @@ function Home() {
     setPassword(document.getElementById('pass').value);
   }
 
+  function placeOrder() {
+    setCurrentOrder([]);
+    setGrandTotal(0);
+  }
+
   return (
     <div className='backsplash'>
 
@@ -125,7 +131,9 @@ function Home() {
               </div>
             </div>
 
-            <div className='GrandTotal-box'> Grand Total: ${grandTotal.toFixed(2)} </div>
+            <div className='GrandTotal-box'> Grand Total: ${grandTotal.toFixed(2)} 
+            </div>
+            <button className = "option" onClick={placeOrder}> Place Order! </button>
           </div>
         )}
 

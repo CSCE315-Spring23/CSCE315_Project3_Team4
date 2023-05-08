@@ -25,3 +25,31 @@
     display: block;
     font-size: 25px;
 }
+
+.option2 {
+    height: 45px;
+    display: center;
+    border-radius: 20px;
+    border-style: none;
+    background-color: #f8bf0c;
+    color: white;
+    font-size: 20px;
+    font-weight: bolder;
+    margin: 2px;
+    margin-bottom: 10px;
+    margin-left: 85px;
+}
+
+.option2:hover {
+    color: white;
+    background-color: #d3a306;
+}
+
+.option2:active {
+    background-color: #f00;
+    transition-duration: 0.1s;
+}
+
+.order-bottom {
+    display: inline;
+}
